@@ -1,11 +1,81 @@
-<div id="Inbox" *ngIf="selectedItem === 'Inbox'">
-  <p> {{ patients[0].Name}}</p>
-</div>
-<div id="Notifications" *ngIf="selectedItem === 'Notifications'">
-</div>
-<div id="Calendar" *ngIf="selectedItem === 'Calendar'">
-</div>
-<div id="Attachments" *ngIf="selectedItem === 'Attachments'">
-</div>
-<div id="Favourites" *ngIf="selectedItem === 'Favourites'">
-</div>
+<div class="table-responsive">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-11"><h2><b>Patients</b></h2></div>
+        <div class="col-sm-1">
+          <button title="Add Patient" type="button"
+            class="btn btn-info add-new create-button"
+            (click)="openCreationForm()">
+            <i class="fa fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Identity</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Religion</th>
+          <th>Monthly Income</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <tr *ngFor="let patient of patients">
+            <td>{{ patient.identity }}</td>
+            <td>{{ patient.firstName + ' ' + patient.fatherName+ ' ' + patient.grandFatherName + ' ' + patient.familyName }}</td>
+            <td>{{ patient.age }}</td>
+            <td *ngIf="patient.gender === 0">Male</td>
+            <td *ngIf="patient.gender === 1">Female</td>
+            <td *ngIf="patient.religion === 0">Islam</td>
+            <td *ngIf="patient.religion === 1">Christianity</td>
+            <td>{{ patient.monthlyIncome }}</td>
+            <td>{{ patient.address }} </td>
+            <td>
+              <a (click)="openModificationForm(patient.id)" class="view" title="View" data-toggle="tooltip">
+                <i class="material-icons" style="cursor: pointer;">&#xE417;</i>
+              </a>
+              <a (click)="openModificationForm(patient.id)" class="edit" title="Edit" data-toggle="tooltip">
+                <i class="material-icons" style="cursor: pointer;">&#xE254;</i>
+              </a>
+              <a (click)="openDailog(content, patient.id)" class="delete"
+                style="cursor: pointer;" title="Delete" data-toggle="tooltip">
+                <i class="material-icons">&#xE872;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="clearfix">
+        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+        <ul class="pagination">
+          <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+          <li class="page-item"><a href="#" class="page-link">1</a></li>
+          <li class="page-item"><a href="#" class="page-link">2</a></li>
+          <li class="page-item active"><a href="#" class="page-link">3</a></li>
+          <li class="page-item"><a href="#" class="page-link">4</a></li>
+          <li class="page-item"><a href="#" class="page-link">5</a></li>
+          <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Delete Patient</h4>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this patient?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="deletePatient()">Yes</button>
+      <button type="button" class="btn btn btn-danger" (click)="d('Cross click')">No</button>
+    </div>
+  </ng-template>

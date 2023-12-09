@@ -4,6 +4,7 @@ import {
   createPatientAction,
   createPatientFailureAction,
   createPatientSuccessAction,
+  deletePatientAction,
   deletePatientFailureAction,
   deletePatientSuccessAction,
   loadPatientsAction,
@@ -49,7 +50,7 @@ export class PatientsEffect {
   public updatePatient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updatePatientAction),
-      switchMap((action) => this.patientService.create(action.model)),
+      switchMap((action) => this.patientService.update(action.id, action.model)),
       map((resource: PatientResource) =>
         updatePatientSuccessAction({ resource: resource })
       ),
@@ -59,19 +60,19 @@ export class PatientsEffect {
     )
   );
 
-  public deletePatient$ = createEffect(() =>
+  public deleteRemark$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(createPatientAction),
-      switchMap((action) => this.patientService.create(action.model)),
-      map((resource: PatientResource) =>
-        deletePatientSuccessAction({ resource: resource })
-      ),
-      catchError((error: string) =>
-        of(deletePatientFailureAction({ errorMessage: error }))
+      ofType(deletePatientAction),
+      switchMap((action) =>
+        this.patientService.delete(action.id).pipe(
+          map(() => deletePatientSuccessAction({ id: action.id })),
+          catchError((errorMessage: string) =>
+            of(deletePatientFailureAction({ errorMessage: errorMessage }))
+          )
+        )
       )
     )
   );
-
   public constructor(
     private readonly actions$: Actions,
     private readonly patientService: PatientHttpService

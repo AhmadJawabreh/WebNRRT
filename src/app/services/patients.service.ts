@@ -12,7 +12,7 @@ import { PatientsSelectors } from '../selectors/patients.selector';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: `root`
+  providedIn: `root`,
 })
 export class PatientsService {
   public patients = this.store.pipe(select(PatientsSelectors.patientsList));
@@ -28,8 +28,8 @@ export class PatientsService {
     this.store.dispatch(createPatientAction({ model: model }));
   }
 
-  public updatePatient(model: PatientModel) {
-    this.store.dispatch(updatePatientAction({ model: model }));
+  public updatePatient(id: number, model: PatientModel) {
+    this.store.dispatch(updatePatientAction({ id: id, model: model }));
   }
 
   public deletePatient(id: number) {

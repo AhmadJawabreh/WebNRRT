@@ -8,17 +8,14 @@ import { Configuration } from '../config/configuration';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PatientHttpService {
-  private headers: HttpHeaders = new HttpHeaders().append(
-    'Content-Type',
-    'application/json; charset=utf8',
-  ).append('Authorization', Configuration.token);
+  private headers: HttpHeaders = new HttpHeaders()
+    .append('Content-Type', 'application/json; charset=utf8')
+    .append('Authorization', Configuration.token);
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   public getPatients(
     filter: PatientFilter
@@ -27,26 +24,32 @@ export class PatientHttpService {
       Configuration.patientsURL,
       {
         headers: this.headers,
-        params : { filter: JSON.stringify(filter) }
+        params: { filter: JSON.stringify(filter) },
       }
     );
   }
 
   public getPatient(id: number): Observable<PatientResource> {
-    return this.http.get<PatientResource>(`${Configuration.patientsURL}/${id}`);
+    return this.http.get<PatientResource>(
+      `${Configuration.patientsURL}/${id}`,
+      { headers: this.headers }
+    );
   }
 
   public create(model: PatientModel): Observable<PatientResource> {
-    return this.http.post<PatientResource>(Configuration.patientsURL, model);
+    return this.http.post<PatientResource>(Configuration.patientsURL,  JSON.stringify(model), { headers: this.headers });
   }
   public update(id: number, model: PatientModel): Observable<PatientResource> {
     return this.http.put<PatientResource>(
       `${Configuration.patientsURL}/${id}`,
-      model
+      JSON.stringify(model),
+      { headers: this.headers }
     );
   }
 
-  public DeleteItem(id: number): Observable<void> {
-    return this.http.delete<void>(`${Configuration.patientsURL}/${id}`);
+  public delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${Configuration.patientsURL}/${id}`, {
+      headers: this.headers,
+    });
   }
 }

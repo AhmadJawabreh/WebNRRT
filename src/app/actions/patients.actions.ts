@@ -36,7 +36,7 @@ export const createPatientFailureAction = createAction(
 
 export const updatePatientAction = createAction(
   '[PATIENTS] UPDATE PATIENT ACTION',
-  props<{ model: PatientModel }>()
+  props<{ id: number, model: PatientModel }>()
 );
 
 export const updatePatientSuccessAction = createAction(
@@ -56,7 +56,7 @@ export const deletePatientAction = createAction(
 
 export const deletePatientSuccessAction = createAction(
   '[PATIENTS] DELETE PATIENT SUCCESS ACTION',
-  props<{ resource: PatientResource }>()
+  props<{ id: number }>()
 );
 
 export const deletePatientFailureAction = createAction(

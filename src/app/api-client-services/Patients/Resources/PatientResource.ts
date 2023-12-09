@@ -1,10 +1,13 @@
 export interface PatientResource {
-  Id: number;
-  Identity: string;
-  Name: string;
-  Age: number;
-  MonthlyIncome: number;
-  Gender: number;
-  Religion: number;
-  Address: string;
+  id: number;
+  identity: string;
+  firstName: string;
+  fatherName: string;
+  grandFatherName: string;
+  familyName: string;
+  age: number;
+  monthlyIncome: number;
+  gender: number;
+  religion: number;
+  address: string;
 }

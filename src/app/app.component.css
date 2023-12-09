@@ -1,30 +1,38 @@
-
 body{
-  margin: 0px
+  color: #5f5f5f;
 }
-my-app {
-  display: flex;
-  flex-direction: column;
-}
-
-kendo-drawer-container {
-  flex: 1 1 auto;
-  overflow-y: auto;
-}
-.k-icon {
-  font-size: 20px;
-}
-.custom-toolbar {
+.offcanvas-header {
   width: 100%;
-  background-color: #f6f6f6;
-  line-height: 10px;
-  border-bottom: inset;
-  border-bottom-width: 1px;
-  padding: 3px 8px;
-  color: #656565;
+  border-bottom: 1px solid #e7e7e7;
+  background: #5F5FCB;
+  color: whitesmoke;
 }
-.mail-box {
-  margin-left: 20px;
-  font-weight: bold;
-  font-size: 17px;
+.offcanvas-body
+{
+  background-color: ghostwhite;
+}
+.form
+{
+  box-sizing: content-box;
+  background-color: #a9a9a914;
+  margin: 0 2%;
+  padding: 2%;
+  border: 1px #b8b8c9 solid;
+  border-radius: 5px;
+}
+.form-title
+{
+  margin: 0 2%;
+  margin-top: 3%;
+  box-sizing: content-box;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: larger;
+}
+.form-title p
+{
+  display: inline-block;
+  border-bottom: 3px #5F5FCB solid;
+  color: #656363;
+  font-size: larger;
 }

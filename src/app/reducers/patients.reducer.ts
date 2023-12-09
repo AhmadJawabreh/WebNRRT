@@ -50,7 +50,7 @@ export const patientsReducer = createReducer(
   }),
   on(updatePatientSuccessAction, (state, action) => {
     const patients = Object.assign([], state.items) as PatientResource[];
-    const index = patients.findIndex((item) => item.Id === action.resource.Id);
+    const index = patients.findIndex((item) => item.id === action.resource.id);
     patients[index] = action.resource;
 
     return {
@@ -63,7 +63,7 @@ export const patientsReducer = createReducer(
   }),
   on(deletePatientSuccessAction, (state, action) => {
     const patients = Object.assign([], state.items) as PatientResource[];
-    const items = patients.filter((item) => item.Id !== action.resource.Id);
+    const items = patients.filter((item) => item.id !== action.id);
     return {
       ...state,
       isLoading: false,
