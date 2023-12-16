@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 </body>
@@ -18,25 +22,26 @@
     <div>
       <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start"
       id="menu">
-      <li>
+      <li (click)="navigate('patients')">
         <a data-bs-toggle="collapse" class="nav-link text-truncate">
-          <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Patients</span>
+          <i class="bi bi-people" style="font-size: 24px;"></i><span class="ms-1 d-none d-sm-inline">Patients</span>
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link text-truncate">
-          <i class="bi bi-list"></i>
-          <span class="ms-1 d-none d-sm-inline">Patients Movements</span></a>
-      </li>
-      <li>
+      <li (click)="navigate('Vistis')">
         <a class="nav-link text-truncate">
-          <i class="fs-5 bi-people"></i>
-          <span class="ms-1 d-none d-sm-inline">PatientsHistory</span>
+          <i class="bi bi-clipboard-pulse" style="font-size: 24px;"></i>
+          <span class="ms-1 d-none d-sm-inline">Patients Vistis</span></a>
+      </li>
+      <li (click)="navigate('Vistis')">
+        <a class="nav-link text-truncate">
+          <i class="bi bi-clock-history" style="font-size: 24px;"></i>
+          <span class="ms-1 d-none d-sm-inline">Patients History</span>
         </a>
       </li>
     </ul>
     </div>
   </div>
+
 </ng-template>
 <nav class="navbar navbar-dark" style="background:#5F5FCB;">
   <button class="navbar-toggler" style="margin-left: 1%;" (click)="open(content)" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -24,7 +24,10 @@ export class PatientHttpService {
       Configuration.patientsURL,
       {
         headers: this.headers,
-        params: { filter: JSON.stringify(filter) },
+        params: {
+          "skip": filter.skip,
+          "take": filter.take,
+        },
       }
     );
   }
@@ -37,7 +40,11 @@ export class PatientHttpService {
   }
 
   public create(model: PatientModel): Observable<PatientResource> {
-    return this.http.post<PatientResource>(Configuration.patientsURL,  JSON.stringify(model), { headers: this.headers });
+    return this.http.post<PatientResource>(
+      Configuration.patientsURL,
+      JSON.stringify(model),
+      { headers: this.headers }
+    );
   }
   public update(id: number, model: PatientModel): Observable<PatientResource> {
     return this.http.put<PatientResource>(

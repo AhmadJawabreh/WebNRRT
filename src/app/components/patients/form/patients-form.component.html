@@ -2,35 +2,55 @@
   <div class="form-title">
     <p>{{this.title}}</p>
   </div>
-  <form class="form"  [formGroup]="form">
+  <form class="form" [formGroup]="form">
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="form-floating form-floating-sm mb-3">
-          <input type="text" class="form-control" id="firstName" placeholder="Frist Name"  formControlName="firstName">
+          <input type="text" [ngClass]="{'is-invalid': isValid('firstName')}"
+            class="form-control" id="firstName" placeholder="Frist Name"
+            formControlName="firstName">
           <label for="firstName">First Name</label>
+          <p style="color:red;" *ngIf="isValid('firstName')">
+            First Name is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="fatherName"
+          <input type="text" [ngClass]="{'is-invalid': isValid('fatherName')}"
+            class="form-control" id="fatherName"
             placeholder="Father Name" formControlName="fatherName">
           <label for="fatherName">Father Name</label>
+          <p style="color:red;" *ngIf="isValid('fatherName')">
+            Father Name is required
+          </p>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="grandFatherName"
-            placeholder="Grand Father Name" formControlName="grandFatherName">
+          <input
+            type="text"
+            [ngClass]="{'is-invalid': isValid('grandFatherName')}"
+            class="form-control" id="grandFatherName"
+            placeholder="Grand Father Name"
+            formControlName="grandFatherName">
           <label for="grandFatherName">Grand Father Name</label>
+          <p style="color:red;" *ngIf="isValid('grandFatherName')">
+            Grand Father Name is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="familyName"
+          <input type="text" [ngClass]="{'is-invalid': isValid('familyName')}"
+            class="form-control" id="familyName"
             placeholder="Family Name" formControlName="familyName">
           <label for="familyName">Family Name</label>
+          <p style="color:red;" *ngIf="isValid('familyName')">
+            Family Name is required
+          </p>
         </div>
       </div>
     </div>
@@ -40,6 +60,9 @@
           <input type="text" class="form-control" id="identity"
             placeholder="identity" formControlName="identity">
           <label for="identity">Identity</label>
+          <p style="color:red;" *ngIf="isValid('identity')">
+            Identity is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-4">
@@ -49,6 +72,9 @@
             <option value=1>Christianity</option>
           </select>
           <label for="Religion">Religion</label>
+          <p style="color:red;" *ngIf="isValid('religion')">
+            Religion Name is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-4">
@@ -59,6 +85,9 @@
               <option value=1>Female</option>
             </select>
             <label for="gender">Gender</label>
+            <p style="color:red;" *ngIf="isValid('gender')">
+              Gender is required
+            </p>
           </div>
         </div>
       </div>
@@ -66,27 +95,41 @@
     <div class="row">
       <div class="col-sm-12 col-md-4">
         <div class="form-floating form-floating-sm mb-3">
-          <input type="number" class="form-control" id="age"
+          <input type="number" [ngClass]="{'is-invalid': isValid('age')}"
+            class="form-control" id="age"
             placeholder="age" formControlName="age">
           <label for="age">Age</label>
+          <p style="color:red;" *ngIf="isValid('age')">
+            Age is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-4">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="address"
+          <input type="text" class="form-control"
+            [ngClass]="{'is-invalid': isValid('address')}" id="address"
             placeholder="address" formControlName="address">
           <label for="address">Address</label>
+          <p style="color:red;" *ngIf="isValid('address')">
+            Address is required
+          </p>
         </div>
       </div>
       <div class="col-sm-12 col-md-4">
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" id="monthlyIncome"
+          <input type="number" class="form-control"
+            [ngClass]="{'is-invalid': isValid('monthlyIncome')}" id="monthlyIncome"
             placeholder="Monthly Income" formControlName="monthlyIncome">
           <label for="monthlyIncome">Monthly Income</label>
+          <p style="color:red;" *ngIf="isValid('monthlyIncome')">
+            Monthly Income is required
+          </p>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary"  (click)="onSubmit()">Save</button>
-    <button type="button" class="btn btn-secondary cancel-button" (click)="navigateBack()">Close</button>
+    <button type="button" class="btn btn-primary" [disabled]="!this.form.valid"
+      (click)="onSubmit()">Save</button>
+    <button type="button" class="btn btn-secondary cancel-button"
+      (click)="navigateBack()">Close</button>
   </form>
 </div>

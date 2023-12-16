@@ -12,9 +12,11 @@ import { PatientsComponent } from './components/patients/patients.component';
 import { PatientsEffect } from './effects/patients.effect';
 import { reducers } from './reducers/app-state';
 import { NgbModal, NgbModalConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PatientsFormComponent } from './components/patients/form/patients-form/patients-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PatientsFormComponent } from './components/patients/form/patients-form.component';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [AppComponent, PatientsComponent, PatientsFormComponent],
@@ -31,7 +33,9 @@ import { RouterModule } from '@angular/router';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    NgbModule
+    NgbModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [HttpClientModule,
     NgbModal,

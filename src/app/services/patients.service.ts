@@ -17,6 +17,7 @@ import { Injectable } from '@angular/core';
 export class PatientsService {
   public patients = this.store.pipe(select(PatientsSelectors.patientsList));
   public isloading = this.store.pipe(select(PatientsSelectors.isLoading));
+  public totalResult = this.store.pipe(select(PatientsSelectors.totalResult));
 
   public constructor(private store: Store<AppState>) {}
 

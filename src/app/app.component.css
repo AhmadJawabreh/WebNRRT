@@ -9,7 +9,7 @@ body{
 }
 .offcanvas-body
 {
-  background-color: ghostwhite;
+  background-color: white;
 }
 .form
 {
@@ -35,4 +35,11 @@ body{
   border-bottom: 3px #5F5FCB solid;
   color: #656363;
   font-size: larger;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

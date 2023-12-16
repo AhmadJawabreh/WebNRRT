@@ -1,10 +1,8 @@
+import { PatientsService } from 'src/app/services/patients.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs';
 import { PatientModel } from 'src/app/api-client-services/Patients/Models/PatientModel';
-import { Gender } from './../../../../api-client-services/Patients/Enums/gender';
-import { Religions } from './../../../../api-client-services/Patients/Enums/religions';
-import { PatientsService } from './../../../../services/patients.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientResource } from 'src/app/api-client-services/Patients/Resources/PatientResource';
 
@@ -26,7 +24,11 @@ export class PatientsFormComponent implements OnInit {
     private readonly router: Router
   ) {}
 
-  ngOnInit(): void {
+  public isValid(name: string): boolean {
+    const control = this.form.get(name);
+    return control?.hasError('required') && control.touched? true: false;
+  }
+  public ngOnInit(): void {
     this.initializeForm();
     this.trackFormValues();
   }

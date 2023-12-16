@@ -45,7 +45,7 @@ export const patientsReducer = createReducer(
       isLoading: false,
       isLoaded: true,
       items: patients,
-      totalResults: patients.length,
+      totalResults: state.totalResults + 1,
     };
   }),
   on(updatePatientSuccessAction, (state, action) => {
@@ -58,7 +58,6 @@ export const patientsReducer = createReducer(
       isLoading: false,
       isLoaded: true,
       items: patients,
-      totalResults: patients.length,
     };
   }),
   on(deletePatientSuccessAction, (state, action) => {
@@ -69,7 +68,7 @@ export const patientsReducer = createReducer(
       isLoading: false,
       isLoaded: true,
       items: items,
-      totalResults: items.length,
+      totalResults: state.totalResults - 1,
     };
   }),
   on(

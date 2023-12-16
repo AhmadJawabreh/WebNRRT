@@ -4,6 +4,8 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PatientsService } from 'src/app/services/patients.service';
 import { PatientFilter } from './../../api-client-services/Patients/Filters/PatientFilter';
 import { PatientResource } from './../../api-client-services/Patients/Resources/PatientResource';
+import { PageEvent } from '@angular/material/paginator';
+import { pageSize } from 'src/app/shared/constent';
 
 @Component({
   selector: 'app-patients',
@@ -12,8 +14,8 @@ import { PatientResource } from './../../api-client-services/Patients/Resources/
 })
 export class PatientsComponent implements OnInit {
   public patients: PatientResource[] = [];
+  public totalResult = 0;
 
-  private filter = {} as PatientFilter;
   private selectedId = 0;
 
   constructor(
@@ -27,10 +29,13 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientsService.loadPatients(this.filter);
+    this.patientsService.loadPatients({ skip: 0, take: pageSize } as PatientFilter);
     this.patientsService.patients.subscribe((items: PatientResource[]) => {
       this.patients = items;
     });
+    this.patientsService.totalResult.subscribe(
+      (count) => (this.totalResult = count)
+    );
   }
 
   public openDailog(content: any, id: number) {
@@ -49,5 +54,13 @@ export class PatientsComponent implements OnInit {
   public deletePatient() {
     this.modalService.dismissAll();
     this.patientsService.deletePatient(this.selectedId);
+  }
+
+  public next(event: PageEvent) {
+    this.patientsService.loadPatients({
+      skip: event.pageIndex * pageSize,
+      take: pageSize,
+    } as PatientFilter);
+    console.log(event);
   }
 }
