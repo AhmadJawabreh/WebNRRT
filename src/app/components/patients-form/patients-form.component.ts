@@ -1,10 +1,10 @@
+import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
+import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
 import { PatientsService } from 'src/app/services/patients.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { filter } from 'rxjs';
-import { PatientModel } from 'src/app/api-client-services/Patients/Models/PatientModel';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PatientResource } from 'src/app/api-client-services/Patients/Resources/PatientResource';
 
 @Component({
   selector: 'app-patients-form',

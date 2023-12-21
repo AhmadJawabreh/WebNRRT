@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 - present NRRT.
+ * All rights reserved.
+ */
+
 export interface PatientResource {
   id: number;
   identity: string;

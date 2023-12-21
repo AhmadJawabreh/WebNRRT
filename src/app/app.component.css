@@ -4,7 +4,7 @@ body{
 .offcanvas-header {
   width: 100%;
   border-bottom: 1px solid #e7e7e7;
-  background: #5F5FCB;
+  background: #3f51b5;
   color: whitesmoke;
 }
 .offcanvas-body
@@ -32,9 +32,12 @@ body{
 .form-title p
 {
   display: inline-block;
-  border-bottom: 3px #5F5FCB solid;
+  border-bottom: 3px #3f51b5 solid;
+  padding-bottom: 12px;
   color: #656363;
-  font-size: larger;
+  font-size: x-large;
+  color: #3f51b5;
+
 }
 .material-symbols-outlined {
   font-variation-settings:
@@ -42,4 +45,51 @@ body{
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+/**
+homve page props
+*/
+.page-title {
+  margin-left: 3%;
+  margin-top: 4%;
+  font-size: x-large;
+  color: #3f51b5;
+}
+
+
+table {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 0.2%;
+}
+mat-paginator {
+  width: 95%;
+  margin: 0 auto;
+}
+.page-title {
+  margin-left: 3%;
+  margin-top: 4%;
+  font-size: x-large;
+  color: #3f51b5;
+}
+.plus-button {
+  padding-top: 2.2%;
+  padding-right: 3.2%;
+}
+.add {
+  float: right;
+}
+.edit {
+color: orange;
+}
+.delete {
+  color: red;
+}
+.view{
+  color: #03A9F4;
+}
+
+.mat-radio-button {
+  margin-left: 16px;
 }

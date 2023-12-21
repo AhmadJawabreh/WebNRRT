@@ -1,0 +1,114 @@
+<div class="conatiner">
+  <div class="form-title">
+    <p>{{this.title}}</p>
+  </div>
+  <form  class="form" [formGroup]="form">
+    <div class="row">
+      <mat-form-field  class="col-sm-4">
+        <mat-label>Patient</mat-label>
+        <mat-select formControlName="patientId" [value]= "this.item.patientId">
+          <mat-option *ngFor="let patient of patients"  [value]="patient.id">{{patient.firstName + " " +patient.familyName}}</mat-option>
+        </mat-select>
+          <mat-error *ngIf="this.form.get('patientId')?.hasError">Please select a patient</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Clinic Name</mat-label>
+        <input matInput title="clinicName"  formControlName="clinicName">
+        <mat-error *ngIf="this.form.get('clinicName')?.hasError">Please enter the Clinic Name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Specialist Name</mat-label>
+        <input matInput formControlName="specialistName" title="specialistName">
+        <mat-error *ngIf="this.form.get('specialistName')?.hasError">Please enter the Specialist Name</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Blood Pressure</mat-label>
+        <input matInput type="number" formControlName="bloodPressure" title="bloodPressure">
+        <mat-error *ngIf="this.form.get('bloodPressure')?.hasError">Please enter the Blood Pressure</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Heart Beats</mat-label>
+        <input matInput type="number" formControlName="heartBeats" title="heartBeats">
+        <mat-error *ngIf="this.form.get('heartBeats')?.hasError">Please enter the Heart Beats</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Medical Plan</mat-label>
+        <textarea  matInput formControlName="medicalPlan" title="medicalPlan"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="row" >
+      <div class="col-sm-4">
+        <mat-form-field>
+          <mat-label>Check In</mat-label>
+          <input matInput [matDatepicker]="checkin" formControlName="checkIn" title="checkin">
+          <mat-datepicker-toggle matIconSuffix [for]="checkin"></mat-datepicker-toggle>
+          <mat-datepicker #checkin></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field>
+          <mat-label>Check Out</mat-label>
+          <input matInput [matDatepicker]="checkout" formControlName="checkOut" title="checkout">
+          <mat-datepicker-toggle matIconSuffix [for]="checkout"></mat-datepicker-toggle>
+          <mat-datepicker #checkout></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><b>Edema:</b></label>
+        <mat-radio-group formControlName="haveEdema">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><b>Contrast Media:</b></label>
+        <mat-radio-group formControlName="haveContrastMedia">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><b>Contrast Media:</b></label>
+        <mat-radio-group formControlName="haveContrastMedia">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><b>Take Drugs:</b></label>
+        <mat-radio-group formControlName="takeDrugs">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="isTakeDrugs">
+        <mat-form-field  class="col-sm-8" appearance="outline">
+          <mat-label>Drugs</mat-label>
+          <textarea  matInput formControlName="drugs" title="Drugs"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div style="margin-top: 1%;">
+      <button type="button" class="btn btn-primary"
+        [disabled]="!this.form.valid"
+        (click)="onSubmit()">Save</button>
+      <button type="button" class="btn btn-secondary cancel-button"
+        (click)="navigateBack()">Close</button>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import {
@@ -14,10 +15,9 @@ import {
   updatePatientFailureAction,
   updatePatientSuccessAction,
 } from '../actions/patients.actions';
-import { PatientResource } from '../api-client-services/Patients/Resources/PatientResource';
-import { PatientHttpService } from '../api-client-services/Patients/patients-http-service';
+import { PatientHttpService } from '../api-client-services/patients/patients-http-service';
 import { ResourceCollection } from '../shared/resource-collection';
-import { Injectable } from '@angular/core';
+import { PatientResource } from '../api-client-services/patients/resources/patient-resource';
 
 @Injectable()
 export class PatientsEffect {
@@ -50,7 +50,9 @@ export class PatientsEffect {
   public updatePatient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updatePatientAction),
-      switchMap((action) => this.patientService.update(action.id, action.model)),
+      switchMap((action) =>
+        this.patientService.update(action.id, action.model)
+      ),
       map((resource: PatientResource) =>
         updatePatientSuccessAction({ resource: resource })
       ),

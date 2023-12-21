@@ -1,11 +1,11 @@
+import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PatientsService } from 'src/app/services/patients.service';
-import { PatientFilter } from './../../api-client-services/Patients/Filters/PatientFilter';
-import { PatientResource } from './../../api-client-services/Patients/Resources/PatientResource';
 import { PageEvent } from '@angular/material/paginator';
 import { pageSize } from 'src/app/shared/constent';
+import { PatientResource } from 'src/app/api-client-services/patients/resources/patient-resource';
 
 @Component({
   selector: 'app-patients',
@@ -61,6 +61,5 @@ export class PatientsComponent implements OnInit {
       skip: event.pageIndex * pageSize,
       take: pageSize,
     } as PatientFilter);
-    console.log(event);
   }
 }

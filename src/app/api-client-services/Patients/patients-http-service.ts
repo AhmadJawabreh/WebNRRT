@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { PatientFilter } from './../patients/filters/PatientFilter';
+import { PatientResource } from './resources/patient-resource';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceCollection } from 'src/app/shared/resource-collection';
-import { PatientFilter } from './Filters/PatientFilter';
-import { PatientModel } from './Models/PatientModel';
-import { PatientResource } from './Resources/PatientResource';
 import { Configuration } from '../config/configuration';
 import { Injectable } from '@angular/core';
+import { PatientModel } from './models/PatientModel';
 
 @Injectable({
   providedIn: 'root',

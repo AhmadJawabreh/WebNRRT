@@ -13,8 +13,8 @@ import {
   updatePatientFailureAction,
   updatePatientSuccessAction,
 } from '../actions/patients.actions';
-import { PatientResource } from '../api-client-services/Patients/Resources/PatientResource';
 import { initialStateItems } from './../shared/state-item';
+import { PatientResource } from '../api-client-services/patients/resources/patient-resource';
 
 export const patientsState = initialStateItems<PatientResource>();
 

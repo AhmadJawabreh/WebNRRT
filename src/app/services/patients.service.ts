@@ -6,10 +6,10 @@ import {
   loadPatientsAction,
   updatePatientAction,
 } from '../actions/patients.actions';
-import { PatientFilter } from '../api-client-services/Patients/Filters/PatientFilter';
-import { PatientModel } from '../api-client-services/Patients/Models/PatientModel';
 import { PatientsSelectors } from '../selectors/patients.selector';
 import { Injectable } from '@angular/core';
+import { PatientFilter } from '../api-client-services/patients/filters/PatientFilter';
+import { PatientModel } from '../api-client-services/patients/models/PatientModel';
 
 @Injectable({
   providedIn: `root`,

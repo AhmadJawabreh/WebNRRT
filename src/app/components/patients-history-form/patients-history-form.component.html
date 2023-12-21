@@ -1,0 +1,131 @@
+<div class="conatiner">
+  <div class="form-title">
+    <p>{{this.title}}</p>
+  </div>
+  <form  class="form" [formGroup]="form">
+    <div class="row" >
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>AKI</mat-label>
+        <input matInput title="aki" type="number" formControlName="AKI">
+      </mat-form-field>
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Weight</mat-label>
+        <input matInput type="number" formControlName="weight" title="Weight">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Height</mat-label>
+        <input matInput type="number" min="1" formControlName="height" title="Height">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Proteinuria</mat-label>
+        <input matInput type="number" formControlName="proteinuria"
+          title="Proteinuria">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Serum Ceratinine</mat-label>
+        <input matInput type="number" formControlName="serumCeratinine"
+          title="Serum Ceratinine">
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>GFR</mat-label>
+        <input matInput type="number" formControlName="GFR" title="GFR">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Anemia</mat-label>
+        <input matInput type="number" formControlName="anemia"
+          title="Proteinuria">
+      </mat-form-field>
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Hematuria</mat-label>
+        <input matInput type="number" formControlName="hematuria"
+          title="hematuria">
+      </mat-form-field>
+      <mat-form-field  class="col-sm-4">
+        <mat-label>Patient</mat-label>
+        <mat-select formControlName="patientId" [value]= "this.item.patientId">
+          <mat-option *ngFor="let patient of patients"  [value]="patient.id">{{patient.firstName + " " +patient.familyName}}</mat-option>
+        </mat-select>
+
+          <mat-error *ngIf="this.form.get('patientId')?.hasError">Please select a patient</mat-error>
+
+      </mat-form-field>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label><b>Hepatitis:</b></label>
+        <mat-radio-group formControlName="hepatitis">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-4">
+        <label><b>Diabetes Mellitus:</b></label>
+        <mat-radio-group formControlName="diabetesMellitus">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-4">
+        <label><b>Cancer:</b></label>
+        <mat-radio-group formControlName="cancer">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 2%;">
+      <div class="col-sm-4">
+        <label><b>Previous kidney Disease:</b></label>
+        <mat-radio-group formControlName="previouskidneyDisease">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-4">
+        <label><b>Regular Medications:</b></label>
+        <mat-radio-group formControlName="regularMedications">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-4">
+        <label><b>Open Heart Surgery:</b></label>
+        <mat-radio-group formControlName="openHeartSurgery">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 2%;">
+      <div class="col-sm-4">
+        <label><b>Heart Failure:</b></label>
+        <mat-radio-group formControlName="heartFailure">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-sm-4">
+        <label><b>Hypertension:</b></label>
+        <mat-radio-group formControlName="hypertension">
+          <mat-radio-button [value]='true'>Yes</mat-radio-button>
+          <mat-radio-button [value]='false'>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      </div>
+    <div style="margin-top: 1%;">
+      <button type="button" class="btn btn-primary"
+        [disabled]="!this.form.valid"
+        (click)="onSubmit()">Save</button>
+      <button type="button" class="btn btn-secondary cancel-button"
+        (click)="navigateBack()">Close</button>
+    </div>
+  </form>
+</div>
