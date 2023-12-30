@@ -21,6 +21,7 @@ export class PatientsMovementsComponent implements OnInit {
     'clinicName',
     'Actions'
   ];
+  public isLoading = true;
   public totalResult = 0;
   public dataSource = [] as PatientMovementResource[];
   private selectedId = 0;
@@ -52,6 +53,8 @@ export class PatientsMovementsComponent implements OnInit {
         this.totalResult = totalItems;
       }
     );
+
+    this.patientsMovementsService.isloading.subscribe((isLoading: boolean) => this.isLoading = isLoading);
   }
 
 

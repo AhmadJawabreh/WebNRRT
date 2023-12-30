@@ -1,21 +1,24 @@
 import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
 import { PatientsService } from 'src/app/services/patients.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { filter } from 'rxjs';
+import { Subscription, delay, filter } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PatientFilter } from 'src/app/api-client-services/patients/filters/PatientFilter';
+import { pageSize } from 'src/app/shared/constent';
 
 @Component({
   selector: 'app-patients-form',
   templateUrl: './patients-form.component.html',
   styleUrls: ['./patients-form.component.css'],
 })
-export class PatientsFormComponent implements OnInit {
+export class PatientsFormComponent implements OnInit, OnDestroy {
+  public patientId = 0;
   public title = 'Create Patient';
   public model = {} as PatientModel;
   public form = {} as FormGroup;
-  public patientId = 0;
+  public subscriptions = new Subscription();
 
   constructor(
     private readonly patientsService: PatientsService,
@@ -24,16 +27,16 @@ export class PatientsFormComponent implements OnInit {
     private readonly router: Router
   ) {}
 
-  public isValid(name: string): boolean {
-    const control = this.form.get(name);
-    return control?.hasError('required') && control.touched? true: false;
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
+
   public ngOnInit(): void {
     this.initializeForm();
     this.trackFormValues();
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.form.valid) {
       return;
     }
@@ -47,8 +50,9 @@ export class PatientsFormComponent implements OnInit {
     this.navigateBack();
   }
 
+
   public navigateBack(): void {
-    this.router.navigate(['..']);
+    this.router.navigate(['patients']);
   }
 
   private trackFormValues(): void {
@@ -59,15 +63,21 @@ export class PatientsFormComponent implements OnInit {
 
   private initializeForm(): void {
     let item = {} as PatientResource;
+
     this.patientId = Number.parseInt(this.route.snapshot.params['id'], 10);
 
     if (this.patientId) {
-      this.patientsService.patients.subscribe((items) => {
-        item =
-          items.find((item) => item.id === this.patientId) ??
-          ({} as PatientResource);
-      });
+      this.subscriptions.add(
+        this.patientsService.patients.subscribe((items) => {
+          if (items.length) {
+            item =
+              items.find((item) => item.id === this.patientId) ??
+              ({} as PatientResource);
+          }
+        })
+      );
     }
+
     this.setFormValues(item);
   }
 
@@ -78,11 +88,11 @@ export class PatientsFormComponent implements OnInit {
       grandFatherName: [item.grandFatherName ?? '', Validators.required],
       familyName: [item.familyName ?? '', Validators.required],
       identity: [item.identity ?? '', Validators.required],
-      age: [item.age ?? null, Validators.required],
-      gender: [item.gender ?? 0, Validators.required],
-      religion: [item.religion ?? 0, Validators.required],
-      address: [item.address ?? null, Validators.required],
-      monthlyIncome: [item.monthlyIncome ?? null, Validators.required],
+      age: [item.age ?? 1, Validators.required],
+      gender: [item.gender !== 1 ? 0 : 1, Validators.required],
+      religion: [item.religion !== 1 ? 0 : 1, Validators.required],
+      address: [item.address ?? '', Validators.required],
+      monthlyIncome: [item.monthlyIncome ?? 1, Validators.required],
     });
   }
 
@@ -94,10 +104,16 @@ export class PatientsFormComponent implements OnInit {
       grandFatherName: model.grandFatherName,
       familyName: model.familyName,
       age: model.age,
-      gender: typeof(model.gender) === "string" ? Number.parseInt(model.gender) : model.gender,
-      religion: typeof(model.religion) === "string" ? Number.parseInt(model.religion) : model.religion,
+      gender:
+        typeof model.gender === 'string'
+          ? Number.parseInt(model.gender)
+          : model.gender,
+      religion:
+        typeof model.religion === 'string'
+          ? Number.parseInt(model.religion)
+          : model.religion,
       address: model.address,
-      monthlyIncome: model.monthlyIncome
+      monthlyIncome: model.monthlyIncome,
     } as PatientModel;
   }
 }

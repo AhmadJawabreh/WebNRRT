@@ -1,4 +1,5 @@
 export interface PatientFilter {
+  id: number;
   skip: number;
   take: number;
   identity: string;

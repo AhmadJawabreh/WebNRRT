@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -35,7 +36,15 @@ import { PatientsComponent } from './components/patients/patients.component';
 import { PatientsMovementsEffect } from './effects/patients-movements.effect';
 import { PatientsEffect } from './effects/patients.effect';
 import { PatientsHistoryEffect } from './effects/patients.history.effect';
-import { reducers } from './reducers/app-state';
+import { metaReducers, reducers } from './reducers/app-state';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBar } from './shared/snackbar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { AuthenticationEffect } from './effects/authentication.effect';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './services/authentication-guard.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +55,7 @@ import { reducers } from './reducers/app-state';
     PatientsHistoryComponent,
     PatientsMovementsComponent,
     PatientsMovementsFormComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,11 +64,12 @@ import { reducers } from './reducers/app-state';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers,{metaReducers}),
     EffectsModule.forRoot([
       PatientsEffect,
       PatientsHistoryEffect,
       PatientsMovementsEffect,
+      AuthenticationEffect
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -77,8 +88,13 @@ import { reducers } from './reducers/app-state';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatToolbarModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatCardModule
   ],
-  providers: [HttpClientModule, NgbModal, NgbModalConfig],
+  providers: [HttpClientModule, NgbModal, NgbModalConfig, MatSnackBar, SnackBar, AuthGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

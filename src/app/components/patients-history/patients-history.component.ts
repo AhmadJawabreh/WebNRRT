@@ -24,6 +24,7 @@ export class PatientsHistoryComponent implements OnInit {
     'Triage',
     'Actions'
   ];
+  public isLoading = true;
   public totalResult = 0;
   public dataSource = [] as PeriodicElement[];
   private selectedId = 0;
@@ -43,6 +44,8 @@ export class PatientsHistoryComponent implements OnInit {
       skip: 0,
       take: pageSize,
     } as PatientHistoryFilter);
+
+    this.patientsHistoryService.isloading.subscribe((isLoading: boolean) => this.isLoading = isLoading);
 
     this.patientsHistoryService.totalResult.subscribe((totalItems: number) => {
       this.totalResult = totalItems;

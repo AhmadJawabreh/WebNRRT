@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { headers } from 'src/app/shared/constent';
 import { ResourceCollection } from 'src/app/shared/resource-collection';
 import { Configuration } from '../config/configuration';
 import { PatientMovementFilter } from './filters/patient-movemen-filter';
@@ -20,10 +19,11 @@ export class PatientsMovementsHttpService {
     return this.http.get<ResourceCollection<PatientMovementResource>>(
       Configuration.patientsMovementsURL,
       {
-        headers: headers,
+        headers: Configuration.headers,
         params: {
           skip: filter.skip,
           take: filter.take,
+          id: filter.id ?? 0,
         },
       }
     );
@@ -32,7 +32,7 @@ export class PatientsMovementsHttpService {
   public getPatientMovement(id: number): Observable<PatientMovementResource> {
     return this.http.get<PatientMovementResource>(
       `${Configuration.patientsMovementsURL}/${id}`,
-      { headers: headers }
+      { headers: Configuration.headers }
     );
   }
 
@@ -42,7 +42,7 @@ export class PatientsMovementsHttpService {
     return this.http.post<PatientMovementResource>(
       Configuration.patientsMovementsURL,
       JSON.stringify(model),
-      { headers: headers }
+      { headers: Configuration.headers }
     );
   }
   public update(
@@ -52,16 +52,14 @@ export class PatientsMovementsHttpService {
     return this.http.put<PatientMovementResource>(
       `${Configuration.patientsMovementsURL}/${id}`,
       JSON.stringify(model),
-      { headers: headers }
+      { headers: Configuration.headers }
     );
   }
 
   public delete(id: number): Observable<void> {
     return this.http.delete<void>(
       `${Configuration.patientsMovementsURL}/${id}`,
-      {
-        headers: headers,
-      }
+      { headers: Configuration.headers }
     );
   }
 }

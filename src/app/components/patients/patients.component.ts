@@ -1,22 +1,25 @@
 import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PatientsService } from 'src/app/services/patients.service';
 import { PageEvent } from '@angular/material/paginator';
 import { pageSize } from 'src/app/shared/constent';
 import { PatientResource } from 'src/app/api-client-services/patients/resources/patient-resource';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css'],
 })
-export class PatientsComponent implements OnInit {
-  public patients: PatientResource[] = [];
+export class PatientsComponent implements OnInit, OnDestroy {
   public totalResult = 0;
-
   private selectedId = 0;
+  public isLoading = true;
+  public dataSource = [] as PatientResource[];
+  public subscriptions = new Subscription();
+  public displayedColumns: string[] = ['Name', 'Identity', 'Age', 'Actions'];
 
   constructor(
     private readonly patientsService: PatientsService,
@@ -29,12 +32,29 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientsService.loadPatients({ skip: 0, take: pageSize } as PatientFilter);
-    this.patientsService.patients.subscribe((items: PatientResource[]) => {
-      this.patients = items;
-    });
-    this.patientsService.totalResult.subscribe(
-      (count) => (this.totalResult = count)
+    this.patientsService.loadPatients({
+      skip: 0,
+      take: pageSize,
+    } as PatientFilter);
+
+    this.subscriptions.add(
+      this.patientsService.isloading.subscribe(
+        (isLoading: boolean) => (this.isLoading = isLoading)
+      )
+    );
+
+    this.subscriptions.add(
+      this.patientsService.patients.subscribe(
+        (items: PatientResource[]) => {
+          this.dataSource = items;
+        }
+      )
+    );
+
+    this.subscriptions.add(
+      this.patientsService.totalResult.subscribe(
+        (count) => (this.totalResult = count)
+      )
     );
   }
 
@@ -61,5 +81,9 @@ export class PatientsComponent implements OnInit {
       skip: event.pageIndex * pageSize,
       take: pageSize,
     } as PatientFilter);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

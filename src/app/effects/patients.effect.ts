@@ -18,18 +18,33 @@ import {
 import { PatientHttpService } from '../api-client-services/patients/patients-http-service';
 import { ResourceCollection } from '../shared/resource-collection';
 import { PatientResource } from '../api-client-services/patients/resources/patient-resource';
+import { SnackBar } from '../shared/snackbar';
+import {
+  cantCreatePatient,
+  cantDeletePatient,
+  cantUpdatePatient,
+  patientCreatedSuccessfully,
+  patientDeletedSuccessfully,
+  patientUpdateSuccessfully,
+} from '../shared/messages';
+import { greenSnackBar, readSnackBar } from '../shared/constent';
 
 @Injectable()
 export class PatientsEffect {
   public loadPatients$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadPatientsAction),
-      switchMap((action) => this.patientService.getPatients(action.filter)),
-      map((resource: ResourceCollection<PatientResource>) =>
-        loadPatientsSuccessAction({ response: resource })
-      ),
-      catchError((error: string) =>
-        of(loadPatientsFailureAction({ errorMessage: error }))
+      switchMap((action) =>
+        this.patientService.getPatients(action.filter).pipe(
+          map((resource: ResourceCollection<PatientResource>) => {
+            return  loadPatientsSuccessAction({ response: resource });
+
+          }
+          ),
+          catchError((error: string) =>
+            of(loadPatientsFailureAction({ errorMessage: error }))
+          )
+        )
       )
     )
   );
@@ -37,12 +52,26 @@ export class PatientsEffect {
   public createPatient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createPatientAction),
-      switchMap((action) => this.patientService.create(action.model)),
-      map((resource: PatientResource) =>
-        createPatientSuccessAction({ resource: resource })
-      ),
-      catchError((error: string) =>
-        of(createPatientFailureAction({ errorMessage: error }))
+      switchMap((action) =>
+        this.patientService.create(action.model).pipe(
+          map((resource: PatientResource) => {
+            this.snackBar.showSnackbar(
+              patientCreatedSuccessfully,
+              greenSnackBar
+            );
+            return createPatientSuccessAction({ resource: resource });
+          }),
+          catchError((exception: any) => {
+            const errorMessage = exception.error?.errorDetails?.Id[0];
+            this.snackBar.showSnackbar(
+              errorMessage ?? cantCreatePatient,
+              readSnackBar
+            );
+            return of(
+              createPatientFailureAction({ errorMessage: errorMessage })
+            );
+          })
+        )
       )
     )
   );
@@ -51,32 +80,55 @@ export class PatientsEffect {
     this.actions$.pipe(
       ofType(updatePatientAction),
       switchMap((action) =>
-        this.patientService.update(action.id, action.model)
-      ),
-      map((resource: PatientResource) =>
-        updatePatientSuccessAction({ resource: resource })
-      ),
-      catchError((error: string) =>
-        of(updatePatientFailureAction({ errorMessage: error }))
+        this.patientService.update(action.id, action.model).pipe(
+          map((resource: PatientResource) => {
+            this.snackBar.showSnackbar(
+              patientUpdateSuccessfully,
+              greenSnackBar
+            );
+            return updatePatientSuccessAction({ resource: resource });
+          }),
+          catchError((exception: any) => {
+            const errorMessage = exception.error?.errorDetails?.Id[0];
+            this.snackBar.showSnackbar(
+              errorMessage ?? cantUpdatePatient,
+              readSnackBar
+            );
+            return of(
+              updatePatientFailureAction({ errorMessage: errorMessage })
+            );
+          })
+        )
       )
     )
   );
 
-  public deleteRemark$ = createEffect(() =>
+  public deletePatient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deletePatientAction),
       switchMap((action) =>
         this.patientService.delete(action.id).pipe(
-          map(() => deletePatientSuccessAction({ id: action.id })),
-          catchError((errorMessage: string) =>
-            of(deletePatientFailureAction({ errorMessage: errorMessage }))
-          )
+          map(() => {
+            this.snackBar.showSnackbar(
+              patientDeletedSuccessfully,
+              greenSnackBar
+            );
+            return deletePatientSuccessAction({ id: action.id });
+          }),
+          catchError((exception: any) => {
+            const errorMessage = exception.error?.errorDetails?.Id[0] ?? cantDeletePatient;
+            this.snackBar.showSnackbar(errorMessage, readSnackBar);
+            return of(
+              deletePatientFailureAction({ errorMessage: errorMessage })
+            );
+          })
         )
       )
     )
   );
   public constructor(
     private readonly actions$: Actions,
-    private readonly patientService: PatientHttpService
+    private readonly patientService: PatientHttpService,
+    private readonly snackBar: SnackBar
   ) {}
 }

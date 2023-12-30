@@ -1,6 +1,6 @@
 import { PatientFilter } from './../patients/filters/PatientFilter';
 import { PatientResource } from './resources/patient-resource';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResourceCollection } from 'src/app/shared/resource-collection';
 import { Configuration } from '../config/configuration';
@@ -11,10 +11,6 @@ import { PatientModel } from './models/PatientModel';
   providedIn: 'root',
 })
 export class PatientHttpService {
-  private headers: HttpHeaders = new HttpHeaders()
-    .append('Content-Type', 'application/json; charset=utf8')
-    .append('Authorization', Configuration.token);
-
   constructor(private http: HttpClient) {}
 
   public getPatients(
@@ -23,10 +19,11 @@ export class PatientHttpService {
     return this.http.get<ResourceCollection<PatientResource>>(
       Configuration.patientsURL,
       {
-        headers: this.headers,
+        headers: Configuration.headers,
         params: {
-          "skip": filter.skip,
-          "take": filter.take,
+          skip: filter.skip,
+          take: filter.take,
+          id: filter.id ?? 0
         },
       }
     );
@@ -35,7 +32,7 @@ export class PatientHttpService {
   public getPatient(id: number): Observable<PatientResource> {
     return this.http.get<PatientResource>(
       `${Configuration.patientsURL}/${id}`,
-      { headers: this.headers }
+      { headers: Configuration.headers}
     );
   }
 
@@ -43,20 +40,20 @@ export class PatientHttpService {
     return this.http.post<PatientResource>(
       Configuration.patientsURL,
       JSON.stringify(model),
-      { headers: this.headers }
+      { headers: Configuration.headers}
     );
   }
   public update(id: number, model: PatientModel): Observable<PatientResource> {
     return this.http.put<PatientResource>(
       `${Configuration.patientsURL}/${id}`,
       JSON.stringify(model),
-      { headers: this.headers }
+      { headers: Configuration.headers}
     );
   }
 
   public delete(id: number): Observable<void> {
     return this.http.delete<void>(`${Configuration.patientsURL}/${id}`, {
-      headers: this.headers,
+      headers: Configuration.headers,
     });
   }
 }

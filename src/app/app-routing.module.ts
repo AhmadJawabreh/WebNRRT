@@ -6,17 +6,21 @@ import { PatientsHistoryFormComponent } from './components/patients-history-form
 import { PatientsHistoryComponent } from './components/patients-history/patients-history.component';
 import { PatientsMovementsComponent } from './components/patients-movements/patients-movements.component';
 import { PatientsMovementsFormComponent } from './components/patients-movements-form/patients-movements-form.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './services/authentication-guard.service';
 
 const routes: Routes = [
-  { path: 'patients', component: PatientsComponent },
-  { path: 'patients/create', component: PatientsFormComponent },
-  { path: 'patients/edit/:id', component: PatientsFormComponent },
-  { path: 'patients/history', component: PatientsHistoryComponent },
-  { path: 'patients/history/create', component: PatientsHistoryFormComponent },
-  { path: 'patients/history/edit/:id', component: PatientsHistoryFormComponent },
-  { path: 'patients/vistis', component: PatientsMovementsComponent },
-  { path: 'patients/vistis/create', component: PatientsMovementsFormComponent },
-  { path: 'patients/vistis/edit/:id', component: PatientsMovementsFormComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'patients', component: PatientsComponent, canActivate: [AuthGuardService] },
+  { path: '', redirectTo: 'patients', pathMatch: 'full' },
+  { path: 'patients/create', component: PatientsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/edit/:id', component: PatientsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/history', component: PatientsHistoryComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/history/create', component: PatientsHistoryFormComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/history/edit/:id', component: PatientsHistoryFormComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/vistis', component: PatientsMovementsComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/vistis/create', component: PatientsMovementsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'patients/vistis/edit/:id', component: PatientsMovementsFormComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

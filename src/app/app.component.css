@@ -93,3 +93,26 @@ color: orange;
 .mat-radio-button {
   margin-left: 16px;
 }
+
+mat-list-item {
+  cursor: pointer;
+}
+
+mat-list-item mat-icon {
+color: #3f51b5;
+}
+mat-list-item p
+{
+padding-left: 15px;
+padding-top: 15px;
+font-size: 20px;
+color: #3f51b5;
+}
+.red-snackbar {
+  background: #e9ecef;
+  color: red;
+}
+.green-snackbar{
+  background: #e9ecef;
+  color: black;
+}

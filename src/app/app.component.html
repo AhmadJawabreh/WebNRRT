@@ -1,37 +1,39 @@
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
-    <h4 class="offcanvas-title" id="offcanvas-basic-title">NRRT</h4>
-    <button type="button" class="btn-close" aria-label="Close"
+    <h4 class="offcanvas-title" id="offcanvas-basic-title"> </h4>
+    <button type="button" class="btn-close" style="background-color: white;"
       (click)="offcanvas.dismiss('Cross click')"></button>
   </div>
-  <div class="offcanvas-body px-0 ">
-    <div>
-      <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start"
-      id="menu">
-      <li (click)="navigate('patients')">
-        <a data-bs-toggle="collapse" class="nav-link text-truncate">
-          <i class="bi bi-people" style="font-size: 24px;"></i><span class="ms-1 d-none d-sm-inline">Patients</span>
-        </a>
-      </li>
-      <li (click)="navigate('Vistis')">
-        <a class="nav-link text-truncate">
-          <i class="bi bi-clipboard-pulse" style="font-size: 24px;"></i>
-          <span class="ms-1 d-none d-sm-inline">Patients Vistis</span></a>
-      </li>
-      <li (click)="navigate('Vistis')">
-        <a class="nav-link text-truncate">
-          <i class="bi bi-clock-history" style="font-size: 24px;"></i>
-          <span class="ms-1 d-none d-sm-inline">Patients History</span>
-        </a>
-      </li>
-    </ul>
-    </div>
+  <div class="offcanvas-body px-0">
+    <mat-list>
+      <mat-list-item (click)="navigate(0)">
+        <mat-icon>people_outline</mat-icon>
+        <p> Patients </p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate(1)">
+        <mat-icon> transfer_within_a_station</mat-icon>
+        <p> Patients Vistis</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate(2)">
+        <mat-icon aria-hidden="false" aria-label>history</mat-icon>
+        <p>Patients History</p></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="navigate(3)">
+          <mat-icon aria-hidden="false" aria-label>logout</mat-icon>
+          <p>Logout</p></mat-list-item>
+    </mat-list>
   </div>
 </ng-template>
 
-<nav class="navbar navbar-dark" style="background:#3f51b5;">
-  <button class="navbar-toggler" style="margin-left: 1%;" (click)="open(content)" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-</nav>
+<p  *ngIf="isLogin" style="margin-bottom: 0.5px;">
+  <mat-toolbar color="primary">
+    <button (click)="open(content)" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Nephrology Rapid Response Team</span>
+  </mat-toolbar>
+</p>
+
 <router-outlet></router-outlet>

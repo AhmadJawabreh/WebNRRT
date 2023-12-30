@@ -17,7 +17,17 @@ import {
 } from '../actions/patients-movement.action';
 import { PatientsMovementsHttpService } from '../api-client-services/patients-movements/patients-movements-http-service';
 import { PatientMovementResource } from '../api-client-services/patients-movements/resources/patient-movement-resource';
+import { greenSnackBar, readSnackBar } from '../shared/constent';
+import {
+  cantCreatePatientMovement,
+  cantDeletePatientMovement,
+  cantUpdatePatientMovement,
+  patientMovementCreatedSuccessfully,
+  patientMovementDeletedSuccessfully,
+  patientMovementUpdateSuccessfully,
+} from '../shared/messages';
 import { ResourceCollection } from '../shared/resource-collection';
+import { SnackBar } from '../shared/snackbar';
 
 @Injectable()
 export class PatientsMovementsEffect {
@@ -25,13 +35,14 @@ export class PatientsMovementsEffect {
     this.actions$.pipe(
       ofType(loadPatientsMovementAction),
       switchMap((action) =>
-        this.patientsMovementsService.getPatientsMovements(action.filter)
-      ),
-      map((resource: ResourceCollection<PatientMovementResource>) =>
-        loadPatientsMovementSuccessAction({ response: resource })
-      ),
-      catchError((error: string) =>
-        of(loadPatientsMovementFailureAction({ errorMessage: error }))
+        this.patientsMovementsService.getPatientsMovements(action.filter).pipe(
+          map((resource: ResourceCollection<PatientMovementResource>) =>
+            loadPatientsMovementSuccessAction({ response: resource })
+          ),
+          catchError((error: string) =>
+            of(loadPatientsMovementFailureAction({ errorMessage: error }))
+          )
+        )
       )
     )
   );
@@ -39,12 +50,22 @@ export class PatientsMovementsEffect {
   public createPatientMovement$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createPatientMovementAction),
-      switchMap((action) => this.patientsMovementsService.create(action.model)),
-      map((resource: PatientMovementResource) =>
-        createPatientMovementSuccessAction({ resource: resource })
-      ),
-      catchError((error: string) =>
-        of(createPatientMovementFailureAction({ errorMessage: error }))
+      switchMap((action) =>
+        this.patientsMovementsService.create(action.model).pipe(
+          map((resource: PatientMovementResource) => {
+            this.snackBar.showSnackbar(
+              patientMovementCreatedSuccessfully,
+              greenSnackBar
+            );
+            return createPatientMovementSuccessAction({ resource: resource });
+          }),
+          catchError((error: string) => {
+            this.snackBar.showSnackbar(cantCreatePatientMovement, readSnackBar);
+            return of(
+              createPatientMovementFailureAction({ errorMessage: error })
+            );
+          })
+        )
       )
     )
   );
@@ -53,34 +74,50 @@ export class PatientsMovementsEffect {
     this.actions$.pipe(
       ofType(updatePatientMovementAction),
       switchMap((action) =>
-        this.patientsMovementsService.update(action.id, action.model)
-      ),
-      map((resource: PatientMovementResource) =>
-        updatePatientMovementSuccessAction({ resource: resource })
-      ),
-      catchError((error: string) =>
-        of(updatePatientMovementFailureAction({ errorMessage: error }))
+        this.patientsMovementsService.update(action.id, action.model).pipe(
+          map((resource: PatientMovementResource) => {
+            this.snackBar.showSnackbar(
+              patientMovementUpdateSuccessfully,
+              greenSnackBar
+            );
+            return updatePatientMovementSuccessAction({ resource: resource });
+          }),
+          catchError((error: string) => {
+            this.snackBar.showSnackbar(cantUpdatePatientMovement, readSnackBar);
+            return of(
+              updatePatientMovementFailureAction({ errorMessage: error })
+            );
+          })
+        )
       )
     )
   );
 
-  public deleteMovement$ = createEffect(() =>
+  public deletePatientMovement$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deletePatientMovementAction),
       switchMap((action) =>
         this.patientsMovementsService.delete(action.id).pipe(
-          map(() => deletePatientMovementSuccessAction({ id: action.id })),
-          catchError((errorMessage: string) =>
-            of(
+          map(() => {
+            this.snackBar.showSnackbar(
+              patientMovementDeletedSuccessfully,
+              greenSnackBar
+            );
+            return deletePatientMovementSuccessAction({ id: action.id });
+          }),
+          catchError((errorMessage: string) => {
+            this.snackBar.showSnackbar(cantDeletePatientMovement, readSnackBar);
+            return of(
               deletePatientMovementFailureAction({ errorMessage: errorMessage })
-            )
-          )
+            );
+          })
         )
       )
     )
   );
   public constructor(
     private readonly actions$: Actions,
+    private readonly snackBar: SnackBar,
     private readonly patientsMovementsService: PatientsMovementsHttpService
   ) {}
 }

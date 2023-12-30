@@ -6,6 +6,7 @@
 export interface PatientHistoryFilter {
   skip: number;
   take: number;
+  id: number
   hypertension: boolean;
   cancer: boolean;
   OpenHeartSurgery: boolean;
