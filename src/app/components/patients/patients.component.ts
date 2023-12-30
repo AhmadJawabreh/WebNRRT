@@ -1,12 +1,12 @@
-import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { PatientsService } from 'src/app/services/patients.service';
-import { PageEvent } from '@angular/material/paginator';
-import { pageSize } from 'src/app/shared/constent';
-import { PatientResource } from 'src/app/api-client-services/patients/resources/patient-resource';
 import { Subscription } from 'rxjs';
+import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
+import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
+import { PatientsService } from './../../services/patients.service';
+import { pageSize } from './../../shared/constent';
 
 @Component({
   selector: 'app-patients',
@@ -44,11 +44,9 @@ export class PatientsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(
-      this.patientsService.patients.subscribe(
-        (items: PatientResource[]) => {
-          this.dataSource = items;
-        }
-      )
+      this.patientsService.patients.subscribe((items: PatientResource[]) => {
+        this.dataSource = items;
+      })
     );
 
     this.subscriptions.add(

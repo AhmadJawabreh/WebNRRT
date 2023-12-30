@@ -1,15 +1,13 @@
-import { PatientMovementFilter } from './../../api-client-services/patients-movements/filters/patient-movemen-filter';
-import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
-import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
-import { PatientMovementModel } from 'src/app/api-client-services/patients-movements/models/patient-movement-model';
-import { PatientMovementResource } from 'src/app/api-client-services/patients-movements/resources/patient-movement-resource';
-import { PatientsMovementsService } from 'src/app/services/patients-movements.service';
-import { PatientsService } from 'src/app/services/patients.service';
-import { pageSize } from 'src/app/shared/constent';
+import { PatientMovementModel } from './../../api-client-services/patients-movements/models/patient-movement-model';
+import { PatientMovementResource } from './../../api-client-services/patients-movements/resources/patient-movement-resource';
+import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
+import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
+import { PatientsMovementsService } from './../../services/patients-movements.service';
+import { PatientsService } from './../../services/patients.service';
 
 @Component({
   selector: 'app-patients-movements-form',
@@ -34,8 +32,14 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.patientMovementId = Number.parseInt(this.route.snapshot.params['id'], 10);
-    this.patientsService.loadPatients({ skip: 0, take: 1000 } as PatientFilter);
+    this.patientMovementId = Number.parseInt(
+      this.route.snapshot.params['id'],
+      10
+    );
+    this.patientsService.loadPatients({
+      skip: 0,
+      take: 10000,
+    } as PatientFilter);
     this.initializeForm();
     this.trackFormValues();
   }
@@ -91,13 +95,17 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
 
   private initializeForm(): void {
     this.subscriptions.add(
-      this.patientsService.patients.subscribe((items) => (this.patients = items))
+      this.patientsService.patients.subscribe(
+        (items) => (this.patients = items)
+      )
     );
     if (this.patientMovementId) {
       this.title = 'Edit Patient Visti';
       this.subscriptions.add(
         this.patientsMovementsService.patientsMovements.subscribe((items) => {
-          this.item = items.find((item) => item.id === this.patientMovementId) ?? {} as PatientMovementResource;
+          this.item =
+            items.find((item) => item.id === this.patientMovementId) ??
+            ({} as PatientMovementResource);
         })
       );
     }
@@ -150,5 +158,4 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

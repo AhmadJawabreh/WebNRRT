@@ -1,12 +1,10 @@
-import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
-import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
-import { PatientsService } from 'src/app/services/patients.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription, delay, filter } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PatientFilter } from 'src/app/api-client-services/patients/filters/PatientFilter';
-import { pageSize } from 'src/app/shared/constent';
+import { Subscription, filter } from 'rxjs';
+import { PatientsService } from './../../services/patients.service';
+import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
+import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 
 @Component({
   selector: 'app-patients-form',
@@ -15,6 +13,7 @@ import { pageSize } from 'src/app/shared/constent';
 })
 export class PatientsFormComponent implements OnInit, OnDestroy {
   public patientId = 0;
+  public loaded = false;
   public title = 'Create Patient';
   public model = {} as PatientModel;
   public form = {} as FormGroup;
@@ -50,7 +49,6 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
     this.navigateBack();
   }
 
-
   public navigateBack(): void {
     this.router.navigate(['patients']);
   }
@@ -58,7 +56,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
   private trackFormValues(): void {
     this.form.valueChanges
       .pipe(filter(() => this.form.valid))
-      .subscribe((values) => (this.model = this.setPatientModel(values)));
+      .subscribe((values) => (this.model = this.getPatientModel(values)));
   }
 
   private initializeForm(): void {
@@ -67,6 +65,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
     this.patientId = Number.parseInt(this.route.snapshot.params['id'], 10);
 
     if (this.patientId) {
+      this.title = 'Edit Patient';
       this.subscriptions.add(
         this.patientsService.patients.subscribe((items) => {
           if (items.length) {
@@ -96,7 +95,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private setPatientModel(model: PatientModel): PatientModel {
+  private getPatientModel(model: PatientModel): PatientModel {
     return {
       identity: model.identity,
       firstName: model.firstName,

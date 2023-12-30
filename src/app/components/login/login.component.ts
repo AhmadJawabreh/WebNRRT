@@ -2,10 +2,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationModel } from 'src/app/api-client-services/authentication/models/authentication-model';
-import { AuthenticationResource } from 'src/app/api-client-services/authentication/resources/authentication-resource';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { PatientsService } from 'src/app/services/patients.service';
+import { AuthenticationModel } from './../../api-client-services/authentication/models/authentication-model';
+import { AuthenticationResource } from './../../api-client-services/authentication/resources/authentication-resource';
+import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +18,8 @@ export class LoginComponent implements OnInit {
   public isLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthenticationService,
-    private patientService: PatientsService,
-    private router: Router
   ) {
     this.form = this.fb.group({
       email: ['', Validators.required],

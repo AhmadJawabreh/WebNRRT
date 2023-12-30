@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { PatientHistoryFilter } from 'src/app/api-client-services/patients-history/filters/patient-history-filter';
-import { PatientHistoryResource } from 'src/app/api-client-services/patients-history/resources/patient-history-resource';
-import { PatientsHistoryService } from 'src/app/services/patients-history.service';
-import { pageSize } from 'src/app/shared/constent';
+import { PatientHistoryFilter } from './../../api-client-services/patients-history/filters/patient-history-filter';
+import { PatientHistoryResource } from './../../api-client-services/patients-history/resources/patient-history-resource';
+import { PatientsHistoryService } from './../../services/patients-history.service';
+import { pageSize } from './../../shared/constent';
 
 @Component({
   selector: 'app-patients-history-form',

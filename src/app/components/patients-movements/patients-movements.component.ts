@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { PatientMovementFilter } from 'src/app/api-client-services/patients-movements/filters/patient-movemen-filter';
-import { PatientMovementResource } from 'src/app/api-client-services/patients-movements/resources/patient-movement-resource';
-import { PatientsMovementsService } from 'src/app/services/patients-movements.service';
-import { pageSize } from 'src/app/shared/constent';
+import { PatientMovementFilter } from './../../api-client-services/patients-movements/filters/patient-movemen-filter';
+import { PatientMovementResource } from './../../api-client-services/patients-movements/resources/patient-movement-resource';
+import { PatientsMovementsService } from './../../services/patients-movements.service';
+import { pageSize } from './../../shared/constent';
 
 @Component({
   selector: 'app-patients-movements',
@@ -19,7 +19,7 @@ export class PatientsMovementsComponent implements OnInit {
     'checkIn',
     'checkOut',
     'clinicName',
-    'Actions'
+    'Actions',
   ];
   public isLoading = true;
   public totalResult = 0;
@@ -54,10 +54,10 @@ export class PatientsMovementsComponent implements OnInit {
       }
     );
 
-    this.patientsMovementsService.isloading.subscribe((isLoading: boolean) => this.isLoading = isLoading);
+    this.patientsMovementsService.isloading.subscribe(
+      (isLoading: boolean) => (this.isLoading = isLoading)
+    );
   }
-
-
 
   public next(event: PageEvent) {
     this.patientsMovementsService.loadPatientsMovements({

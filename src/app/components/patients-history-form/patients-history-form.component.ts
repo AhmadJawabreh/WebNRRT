@@ -1,12 +1,12 @@
-import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
-import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { PatientHistoryResource } from 'src/app/api-client-services/patients-history/resources/patient-history-resource';
-import { PatientsHistoryService } from 'src/app/services/patients-history.service';
 import { PatientHistoryModel } from './../../api-client-services/patients-history/models/patient-history-model';
+import { PatientHistoryResource } from './../../api-client-services/patients-history/resources/patient-history-resource';
+import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
+import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
+import { PatientsHistoryService } from './../../services/patients-history.service';
 import { PatientsService } from './../../services/patients.service';
 
 @Component({
@@ -65,14 +65,19 @@ export class PatientsHistoryFormComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.patientHistoryId = Number.parseInt(this.route.snapshot.params['id'], 10);
+    this.patientHistoryId = Number.parseInt(
+      this.route.snapshot.params['id'],
+      10
+    );
 
     this.patientsService.patients.subscribe((items) => (this.patients = items));
 
     if (this.patientHistoryId) {
       this.title = 'Edit Patient History';
       this.patientsHistoryService.patientsHistory.subscribe((items) => {
-        const resource = items.find((item) => item.id === this.patientHistoryId) ?? ({} as PatientHistoryResource);
+        const resource =
+          items.find((item) => item.id === this.patientHistoryId) ??
+          ({} as PatientHistoryResource);
         this.item = this.mapResourceToModel(resource);
       });
     }
@@ -125,7 +130,7 @@ export class PatientsHistoryFormComponent implements OnInit {
   }
 
   private getDefaultValue(value: any) {
-    return !(value === undefined || value === null || value === false)
+    return !(value === undefined || value === null || value === false);
   }
 
   private setPatientHistoryModel(
