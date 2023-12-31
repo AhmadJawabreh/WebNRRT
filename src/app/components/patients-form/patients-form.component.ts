@@ -5,6 +5,7 @@ import { Subscription, filter } from 'rxjs';
 import { PatientsService } from './../../services/patients.service';
 import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
 import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
+import { PatientFilter } from 'src/app/api-client-services/patients/filters/PatientFilter';
 
 @Component({
   selector: 'app-patients-form',
@@ -17,7 +18,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
   public title = 'Create Patient';
   public model = {} as PatientModel;
   public form = {} as FormGroup;
-  public subscriptions = new Subscription();
+  public subscriptions = [] as Subscription[];
 
   constructor(
     private readonly patientsService: PatientsService,
@@ -26,13 +27,24 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
     private readonly router: Router
   ) {}
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   public ngOnInit(): void {
-    this.initializeForm();
-    this.trackFormValues();
+    this.patientId = Number.parseInt(this.route.snapshot.params['id'], 10);
+    this.initializeForm({} as PatientResource);
+
+    if (this.patientId) {
+      this.title = 'Edit Patient';
+      this.patientsService.loadPatients({skip:0, take:1, id: this.patientId } as PatientFilter);
+      this.subscriptions.push(
+        this.patientsService.patients.subscribe((items) => {
+          if (items.length) {
+            const item =
+              items.find((item) => item.id === this.patientId) ??
+              ({} as PatientResource);
+              this.initializeForm(item);
+          }
+        })
+      );
+    }
   }
 
   public async onSubmit(): Promise<void> {
@@ -53,34 +65,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
     this.router.navigate(['patients']);
   }
 
-  private trackFormValues(): void {
-    this.form.valueChanges
-      .pipe(filter(() => this.form.valid))
-      .subscribe((values) => (this.model = this.getPatientModel(values)));
-  }
-
-  private initializeForm(): void {
-    let item = {} as PatientResource;
-
-    this.patientId = Number.parseInt(this.route.snapshot.params['id'], 10);
-
-    if (this.patientId) {
-      this.title = 'Edit Patient';
-      this.subscriptions.add(
-        this.patientsService.patients.subscribe((items) => {
-          if (items.length) {
-            item =
-              items.find((item) => item.id === this.patientId) ??
-              ({} as PatientResource);
-          }
-        })
-      );
-    }
-
-    this.setFormValues(item);
-  }
-
-  private setFormValues(item: PatientResource): void {
+  private initializeForm(item: PatientResource): void {
     this.form = this.formBuilder.group({
       firstName: [item.firstName ?? '', Validators.required],
       fatherName: [item.fatherName ?? '', Validators.required],
@@ -93,6 +78,14 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
       address: [item.address ?? '', Validators.required],
       monthlyIncome: [item.monthlyIncome ?? 1, Validators.required],
     });
+
+    this.subscriptions.push(
+      this.form.valueChanges
+      .pipe(filter(() => this.form.valid))
+      .subscribe((values) => {
+        this.model = this.getPatientModel(values)
+      })
+    );
   }
 
   private getPatientModel(model: PatientModel): PatientModel {
@@ -114,5 +107,8 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
       address: model.address,
       monthlyIncome: model.monthlyIncome,
     } as PatientModel;
+  }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(item => item.unsubscribe());
   }
 }
