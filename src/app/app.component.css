@@ -111,8 +111,10 @@ color: #3f51b5;
 .red-snackbar {
   background: #e9ecef;
   color: red;
+  button {color: red}
 }
 .green-snackbar{
   background: #e9ecef;
   color: black;
+  button {color: black}
 }

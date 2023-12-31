@@ -9,7 +9,7 @@ export class SnackBar {
     this.matSnackBar.open(message, 'X', {
       horizontalPosition: 'left',
       verticalPosition: 'bottom',
-      duration: 3500,
+      duration: 3000,
       direction: 'ltr',
       panelClass: [style]
     });
