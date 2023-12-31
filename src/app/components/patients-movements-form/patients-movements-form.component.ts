@@ -8,6 +8,7 @@ import { PatientFilter } from './../../api-client-services/patients/filters/Pati
 import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 import { PatientsMovementsService } from './../../services/patients-movements.service';
 import { PatientsService } from './../../services/patients.service';
+import { PatientMovementFilter } from 'src/app/api-client-services/patients-movements/filters/patient-movemen-filter';
 
 @Component({
   selector: 'app-patients-movements-form',
@@ -21,7 +22,7 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
   public patients = [] as PatientResource[];
   public model = {} as PatientMovementModel;
   public form = {} as FormGroup;
-  public subscriptions = new Subscription();
+  public subscriptions = [] as Subscription[];
 
   constructor(
     private readonly patientsService: PatientsService,
@@ -32,16 +33,42 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.patientMovementId = Number.parseInt(
-      this.route.snapshot.params['id'],
-      10
-    );
     this.patientsService.loadPatients({
       skip: 0,
       take: 10000,
     } as PatientFilter);
-    this.initializeForm();
-    this.trackFormValues();
+
+    this.patientMovementId = Number.parseInt(
+      this.route.snapshot.params['id'],
+      10
+    );
+
+    this.initializeForm({} as PatientMovementResource);
+
+    this.subscriptions.push(
+      this.patientsService.patients.subscribe(
+        (items) => (this.patients = items)
+      )
+    );
+
+    if (this.patientMovementId) {
+      this.title = 'Edit Patient Visti';
+
+      this.patientsMovementsService.loadPatientsMovements({
+        skip: 0,
+        take: 1,
+        id: this.patientMovementId,
+      } as PatientMovementFilter);
+
+      this.subscriptions.push(
+        this.patientsMovementsService.patientsMovements.subscribe((items) => {
+          this.item =
+            items.find((item) => item.id === this.patientMovementId) ??
+            ({} as PatientMovementResource);
+          this.initializeForm(this.item);
+        })
+      );
+    }
   }
 
   public onSubmit(): void {
@@ -83,36 +110,9 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  private trackFormValues(): void {
-    this.subscriptions.add(
-      this.form.valueChanges
-        .pipe(filter(() => this.form.valid))
-        .subscribe(
-          (values) => (this.model = this.getPatientMovementModel(values))
-        )
-    );
-  }
-
-  private initializeForm(): void {
-    this.subscriptions.add(
-      this.patientsService.patients.subscribe(
-        (items) => (this.patients = items)
-      )
-    );
-    if (this.patientMovementId) {
-      this.title = 'Edit Patient Visti';
-      this.subscriptions.add(
-        this.patientsMovementsService.patientsMovements.subscribe((items) => {
-          this.item =
-            items.find((item) => item.id === this.patientMovementId) ??
-            ({} as PatientMovementResource);
-        })
-      );
-    }
-    this.setFormValues(this.item);
-  }
-
-  private setFormValues(item: PatientMovementModel): void {
+  private initializeForm(
+    item: PatientMovementResource | PatientMovementModel
+  ): void {
     this.form = this.formBuilder.group({
       patientId: [item.patientId, Validators.required],
       checkIn: [item.checkIn ?? new Date()],
@@ -130,6 +130,14 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
       takeDrugs: [this.getDefaultValue(item.takeDrugs)],
       drugs: [item.drugs ?? ''],
     });
+
+    this.subscriptions.push(
+      this.form.valueChanges
+        .pipe(filter(() => this.form.valid))
+        .subscribe(
+          (values) => (this.model = this.getPatientMovementModel(values))
+        )
+    );
   }
 
   private getDefaultValue(value: any): boolean {
@@ -155,7 +163,8 @@ export class PatientsMovementsFormComponent implements OnInit, OnDestroy {
       drugs: model.drugs,
     } as PatientMovementModel;
   }
+
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach((item) => item.unsubscribe());
   }
 }
