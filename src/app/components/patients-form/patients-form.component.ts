@@ -5,7 +5,7 @@ import { Subscription, filter } from 'rxjs';
 import { PatientsService } from './../../services/patients.service';
 import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
 import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
-import { PatientFilter } from 'src/app/api-client-services/patients/filters/PatientFilter';
+import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
 
 @Component({
   selector: 'app-patients-form',
