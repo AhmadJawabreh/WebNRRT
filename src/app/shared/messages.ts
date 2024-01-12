@@ -27,3 +27,13 @@ export const cantDeletePatientHistory =  `Can't delete the patient history`;
 export const patientHistoryCreatedSuccessfully = `Patient history created successfully`;
 export const patientHistoryUpdateSuccessfully = `Patient history update successfully`;
 export const patientHistoryDeletedSuccessfully = `Patient history deleted successfully`;
+
+/**
+ * Team notifications.
+ */
+export const cantCreateTeam =  `Can't create the team`;
+export const cantUpdateTeam =  `Can't update the team`;
+export const cantDeleteTeam =  `Can't delete the team`;
+export const teamCreatedSuccessfully = `Team created successfully`;
+export const teamUpdateSuccessfully = `Team update successfully`;
+export const teamDeletedSuccessfully = `Team deleted successfully`;

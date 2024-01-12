@@ -1,0 +1,29 @@
+<div class="conatiner">
+  <div class="form-title">
+    <p>{{this.title}}</p>
+  </div>
+  <form class="form" [formGroup]="form">
+    <div class="row">
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput title="Name" formControlName="name">
+        <mat-error *ngIf="this.form.get('name')?.hasError">Please enter
+          the Team Name</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-sm-6" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"
+          title="description"></textarea>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 1%;">
+      <button type="button" class="btn btn-primary"
+        [disabled]="!this.form.valid"
+        (click)="onSubmit()">Save</button>
+      <button type="button" class="btn btn-secondary cancel-button"
+        (click)="navigateBack()">Close</button>
+    </div>
+  </form>
+</div>
