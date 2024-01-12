@@ -19,15 +19,23 @@
       <mat-list-item (click)="navigate(2)">
         <mat-icon aria-hidden="false" aria-label>history</mat-icon>
         <p>Patients History</p></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item (click)="navigate(3)">
-          <mat-icon aria-hidden="false" aria-label>logout</mat-icon>
-          <p>Logout</p></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate(4)">
+        <mat-icon aria-hidden="false" aria-label>Teams</mat-icon>
+        <p>Teams</p></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate(5)">
+        <mat-icon aria-hidden="false" aria-label>group</mat-icon>
+        <p>Team Members</p></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item (click)="navigate(6)">
+        <mat-icon aria-hidden="false" aria-label>logout</mat-icon>
+        <p>Logout</p></mat-list-item>
     </mat-list>
   </div>
 </ng-template>
 
-<p  *ngIf="isLogin" style="margin-bottom: 0.5px;">
+<p *ngIf="isLogin" style="margin-bottom: 0.5px;">
   <mat-toolbar color="primary">
     <button (click)="open(content)" mat-icon-button>
       <mat-icon>menu</mat-icon>

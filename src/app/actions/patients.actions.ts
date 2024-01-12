@@ -1,8 +1,9 @@
 import { PatientFilter } from './../api-client-services/patients/filters/PatientFilter';
+import { PatientModel } from '../api-client-services/patients/models/PatientModel';
 import { createAction, props } from '@ngrx/store';
 import { ResourceCollection } from '../shared/resource-collection';
+
 import { PatientResource } from '../api-client-services/patients/resources/patient-resource';
-import { PatientModel } from '../api-client-services/patients/models/PatientModel';
 
 export const loadPatientsAction = createAction(
   '[PATIENTS] LOAD PATIENTS ACTION',

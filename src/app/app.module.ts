@@ -29,7 +29,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PatientsFormComponent } from './components/patients-form/patients-form.component';
 import { PatientsHistoryFormComponent } from './components/patients-history-form/patients-history-form.component';
-import { PatientsHistoryComponent } from './components/patients-history/patients-history.component';
 import { PatientsMovementsFormComponent } from './components/patients-movements-form/patients-movements-form.component';
 import { PatientsMovementsComponent } from './components/patients-movements/patients-movements.component';
 import { PatientsComponent } from './components/patients/patients.component';
@@ -45,17 +44,23 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { AuthenticationEffect } from './effects/authentication.effect';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/authentication-guard.service';
+import { TeamsEffect } from './effects/teams.effect';
+import { PatientsHistoryComponent } from './components/patients-history/patients-history.component';
+import { TeamsComponent } from './components/teams/teams.component';
+import { TeamsFormComponent } from './components/teams-form/teams-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientsComponent,
     PatientsFormComponent,
-    PatientsHistoryFormComponent,
     PatientsHistoryComponent,
+    PatientsHistoryFormComponent,
     PatientsMovementsComponent,
     PatientsMovementsFormComponent,
     LoginComponent,
+    TeamsComponent,
+    TeamsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +74,7 @@ import { AuthGuardService } from './services/authentication-guard.service';
       PatientsEffect,
       PatientsHistoryEffect,
       PatientsMovementsEffect,
+      TeamsEffect,
       AuthenticationEffect
     ]),
     StoreDevtoolsModule.instrument({

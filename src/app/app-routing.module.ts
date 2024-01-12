@@ -8,6 +8,8 @@ import { PatientsMovementsComponent } from './components/patients-movements/pati
 import { PatientsMovementsFormComponent } from './components/patients-movements-form/patients-movements-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/authentication-guard.service';
+import { TeamsComponent } from './components/teams/teams.component';
+import { TeamsFormComponent } from './components/teams-form/teams-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +23,9 @@ const routes: Routes = [
   { path: 'patients/vistis', component: PatientsMovementsComponent, canActivate: [AuthGuardService] },
   { path: 'patients/vistis/create', component: PatientsMovementsFormComponent, canActivate: [AuthGuardService] },
   { path: 'patients/vistis/edit/:id', component: PatientsMovementsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'teams', component: TeamsComponent, canActivate: [AuthGuardService] },
+  { path: 'teams/create', component: TeamsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'teams/edit/:id', component: TeamsFormComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
