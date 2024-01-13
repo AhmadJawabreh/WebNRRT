@@ -37,3 +37,14 @@ export const cantDeleteTeam =  `Can't delete the team`;
 export const teamCreatedSuccessfully = `Team created successfully`;
 export const teamUpdateSuccessfully = `Team update successfully`;
 export const teamDeletedSuccessfully = `Team deleted successfully`;
+
+/**
+ * Team Members notifications.
+ */
+export const cantCreateTeamMember =  `Can't create the team member`;
+export const cantUpdateTeamMember =  `Can't update the team member`;
+export const cantDeleteTeamMember =  `Can't delete the team member`;
+export const teamMemberCreatedSuccessfully = `Team Member created successfully`;
+export const teamMemberUpdateSuccessfully = `Team Member update successfully`;
+export const teamMemberDeletedSuccessfully = `Team Member deleted successfully`;
+

@@ -41,7 +41,7 @@ export class AppComponent {
     } else if (type === 4) {
       this.router.navigate([`teams`]);
     } else if (type === 5) {
-      this.router.navigate([`teams/members`]);
+      this.router.navigate([`team/members`]);
     } else if (type === 6) {
       this.authenticationService.logout();
       this.router.navigate([`login`]);

@@ -1,0 +1,68 @@
+<div class="conatiner">
+  <div class="form-title">
+    <p>{{this.title}}</p>
+  </div>
+  <form class="form" [formGroup]="form">
+    <div class="row">
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput title="First Name" formControlName="firstName">
+        <mat-error *ngIf="this.form.get('firstName')?.hasError">Please enter the First Name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Father Name</mat-label>
+        <input matInput title="Father Name" formControlName="fatherName">
+        <mat-error *ngIf="this.form.get('fatherName')?.hasError">Please enter the Father Name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Grand Father Name</mat-label>
+        <input matInput title="Grand Father Name"
+          formControlName="grandFatherName">
+        <mat-error *ngIf="this.form.get('grandFatherName')?.hasError">Please enter the Grand Father Name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput title="Last Name" formControlName="lastName">
+        <mat-error *ngIf="this.form.get('lastName')?.hasError">Please enter the Last Name</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" title="Phone Number">
+        <mat-error *ngIf="this.form.get('phoneNumber')?.hasError">Please enter a Phone Number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Position</mat-label>
+        <input matInput formControlName="position" title="Job Description">
+        <mat-error *ngIf="this.form.get('position')?.hasError">Please enter a Job Description</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" title="Description"> </textarea>
+        <mat-error *ngIf="this.form.get('description')?.hasError">Please enter aDescription</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-3" appearance="outline">
+        <label><b>Team</b></label>
+        <mat-select formControlName="teamId" [value]="this.item.id">
+          <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('teamId')?.hasError">Please select a Team</mat-error>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 1%;">
+      <button type="button" class="btn btn-primary"
+        [disabled]="!this.form.valid"
+        (click)="onSubmit()">Save</button>
+      <button type="button" class="btn btn-secondary cancel-button"
+        (click)="navigateBack()">Close</button>
+    </div>
+  </form>
+</div>

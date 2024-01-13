@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/authentication-guard.service';
 import { TeamsComponent } from './components/teams/teams.component';
 import { TeamsFormComponent } from './components/teams-form/teams-form.component';
+import { TeamMembersComponent } from './components/team-members/team-members.component';
+import { TeamMembersFormComponent } from './components/team-members-form/team-members-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +28,9 @@ const routes: Routes = [
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuardService] },
   { path: 'teams/create', component: TeamsFormComponent, canActivate: [AuthGuardService] },
   { path: 'teams/edit/:id', component: TeamsFormComponent, canActivate: [AuthGuardService] },
+  { path: 'team/members', component: TeamMembersComponent, canActivate: [AuthGuardService] },
+  { path: 'team/members/create', component: TeamMembersFormComponent, canActivate: [AuthGuardService] },
+  { path: 'team/members/edit/:id', component: TeamMembersFormComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({
