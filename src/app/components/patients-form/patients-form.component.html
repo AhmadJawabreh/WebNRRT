@@ -2,30 +2,35 @@
   <div class="form-title">
     <p>{{this.title}}</p>
   </div>
-  <form  class="form" [formGroup]="form">
+  <form class="form" [formGroup]="form">
     <div class="row">
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>First Name</mat-label>
-        <input matInput title="First Name"  formControlName="firstName">
-        <mat-error *ngIf="this.form.get('firstName')?.hasError">Please enter the First Name</mat-error>
+        <input matInput title="First Name" formControlName="firstName">
+        <mat-error *ngIf="this.form.get('firstName')?.hasError">Please enter the
+          First Name</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Father Name</mat-label>
-        <input matInput title="Father Name"  formControlName="fatherName">
-        <mat-error *ngIf="this.form.get('fatherName')?.hasError">Please enter the Father Name</mat-error>
+        <input matInput title="Father Name" formControlName="fatherName">
+        <mat-error *ngIf="this.form.get('fatherName')?.hasError">Please enter
+          the Father Name</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Grand Father Name</mat-label>
-        <input matInput title="Grand Father Name"  formControlName="grandFatherName">
-        <mat-error *ngIf="this.form.get('grandFatherName')?.hasError">Please enter the Grand Father Name</mat-error>
+        <input matInput title="Grand Father Name"
+          formControlName="grandFatherName">
+        <mat-error *ngIf="this.form.get('grandFatherName')?.hasError">Please
+          enter the Grand Father Name</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Family Name</mat-label>
-        <input matInput title="Family Name"  formControlName="familyName">
-        <mat-error *ngIf="this.form.get('familyName')?.hasError">Please enter the Family Name</mat-error>
+        <input matInput title="Family Name" formControlName="familyName">
+        <mat-error *ngIf="this.form.get('familyName')?.hasError">Please enter
+          the Family Name</mat-error>
       </mat-form-field>
     </div>
 
@@ -33,27 +38,63 @@
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Identity</mat-label>
         <input matInput formControlName="identity" title="identity">
-        <mat-error *ngIf="this.form.get('identity')?.hasError">Please enter the Identity</mat-error>
+        <mat-error *ngIf="this.form.get('identity')?.hasError">Please enter the
+          Identity</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Age</mat-label>
         <input matInput type="number" min="1" formControlName="age" title="age">
-        <mat-error *ngIf="this.form.get('age')?.hasError">Please enter the Age, and make sure the age more than one year</mat-error>
+        <mat-error *ngIf="this.form.get('age')?.hasError">Please enter the Age,
+          and make sure the age more than one year</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Monthly Income</mat-label>
-        <input matInput type="number" min="1" formControlName="monthlyIncome" title="monthlyIncome">
-        <mat-error *ngIf="this.form.get('monthlyIncome')?.hasError">Please enter the Monthly Incoming, and make sure the value above zero</mat-error>
+        <input matInput type="number" min="1" formControlName="monthlyIncome"
+          title="monthlyIncome">
+        <mat-error *ngIf="this.form.get('monthlyIncome')?.hasError">Please enter
+          the Monthly Incoming, and make sure the value above zero</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-3" appearance="outline">
         <mat-label>Address</mat-label>
         <input matInput formControlName="address" title="address">
-        <mat-error *ngIf="this.form.get('address')?.hasError">Please enter the Address</mat-error>
+        <mat-error *ngIf="this.form.get('address')?.hasError">Please enter the
+          Address</mat-error>
       </mat-form-field>
     </div>
+
+    <div class="row">
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" title="Phone Number">
+        <mat-error *ngIf="this.form.get('phoneNumber')?.hasError">Please enter
+          the Phone Number</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Education Level</mat-label>
+        <mat-select formControlName="educationLevel" [value]="this.educationLevel">
+          <mat-option [value]="0">Primary education</mat-option>
+          <mat-option [value]="1">Lower secondary education</mat-option>
+          <mat-option [value]="2">Upper secondary education</mat-option>
+          <mat-option [value]="3">Bachelor</mat-option>
+          <mat-option [value]="4">Master</mat-option>
+          <mat-option [value]="5">Doctorate</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('educationLevel')?.hasError">Please select an Education Level</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-sm-4" appearance="outline">
+        <mat-label>Team</mat-label>
+        <mat-select formControlName="teamId" [value]="this.team.id">
+          <mat-option *ngFor="let team of teams" [value]="team.id">{{team.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.form.get('teamId')?.hasError">Please select ateam</mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="row">
       <div class="col-sm-4">
         <label><b>Gender:</b></label>
@@ -63,6 +104,7 @@
         </mat-radio-group>
       </div>
     </div>
+
     <div class="row" style="margin-top: 2%;">
       <div class="col-sm-4">
         <label><b>Religion:</b></label>

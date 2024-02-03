@@ -1,0 +1,43 @@
+import { PatientResource } from "../../patients/resources/patient-resource";
+
+export interface AcuteKidneyInjuryRiskAssessmentResource {
+  id: number;
+  patient: PatientResource;
+  hasSepsis: boolean;
+  sepsisDetails: string;
+  hasCriticalIllness: boolean;
+  criticalIllnessDeatils: string;
+  hasCirculatoryShock: boolean;
+  circulatoryShockDeatils: string;
+  hasBurns: boolean;
+  burnsDeatis: string;
+  trauma: boolean;
+  traumaDeatils: string;
+  hasCardiacSurgery: boolean;
+  hasMajorNoncardiacSurgery: boolean;
+  majorNoncardiacSurgeryDeatils: string;
+  hasNephrotoxicDrugs: boolean;
+  nephrotoxicDrugsDeatils: string;
+  hasRadiocontrastAgents: boolean;
+  radiocontrastAgentsDeatils: string;
+  hasPoisonousPlantesAndAnimals: boolean;
+  poisonousPlantesAndAnimalsDeatils: string;
+  hasDehydration: boolean;
+  dehydrationsDeatils: string;
+  hasCDK: boolean;
+  cDKDeatils: string;
+  hasCancer: boolean;
+  cancerDeatils: string;
+  diabetesMellitus: boolean;
+  diabetesMellitusDeatils: string;
+  hasLiverDisease: boolean;
+  liverDiseaseDeatils: string;
+  hasHeartDisease: boolean;
+  hearDiseasetDeatils: string;
+  hasLungDisease: boolean;
+  lungDiseaseDeatils: string;
+  anemia: number;
+  serumCeratinine: number;
+  blackRace: boolean;
+  triage: boolean;
+}

@@ -1,0 +1,291 @@
+<mat-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="form">
+    <form  class="form" [formGroup]="form">
+      <ng-template matStepLabel>AKI Exposures</ng-template>
+      <div class="row">
+        <mat-form-field  class="col-sm-4">
+          <mat-label>Patient</mat-label>
+          <mat-select formControlName="patientId" [value]= "this.item.patientId">
+            <mat-option *ngFor="let patient of patients"  [value]="patient.id">{{patient.firstName + " " +patient.familyName}}</mat-option>
+          </mat-select>
+
+            <mat-error *ngIf="this.form.get('patientId')?.hasError">Please select a patient</mat-error>
+
+        </mat-form-field>
+        </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>Burns:</b></label>
+          <mat-radio-group formControlName="hasBurns">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Burns Details</mat-label>
+            <textarea  matInput formControlName="burnsDeatis" title="Burns Deatis"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Critical Illness:</b></label>
+          <mat-radio-group formControlName="hasCriticalIllness">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Critical Illness Details</mat-label>
+            <textarea  matInput formControlName="criticalIllnessDeatils" title="Critical Illness Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Sepsis:</b></label>
+          <mat-radio-group formControlName="hasSepsis">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Sepsis Details</mat-label>
+            <textarea  matInput formControlName="sepsisDetails" title="Sepsis Details"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>Circulatory Shock:</b></label>
+          <mat-radio-group formControlName="hasCirculatoryShock">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Circulatory Shock Details</mat-label>
+            <textarea  matInput formControlName="circulatoryShockDeatils" title="Circulatory Shock Deatils"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Trauma:</b></label>
+          <mat-radio-group formControlName="trauma">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Trauma Details</mat-label>
+            <textarea  matInput formControlName="traumaDeatils" title="Trauma Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Poisonous Plantes and Animals:</b></label>
+          <mat-radio-group formControlName="hasPoisonousPlantesAndAnimals">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Poisonous Plantes and Animals Details</mat-label>
+            <textarea  matInput formControlName="poisonousPlantesAndAnimalsDeatils" title="Poisonous Plantes and Animals Details"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>Major Noncardiac Surgery:</b></label>
+          <mat-radio-group formControlName="hasMajorNoncardiacSurgery">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Major Noncardiac Surgery Details</mat-label>
+            <textarea  matInput formControlName="majorNoncardiacSurgeryDeatils" title="Major Noncardiac Surgery Deatils"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Nephrotoxic Drugs:</b></label>
+          <mat-radio-group formControlName="hasNephrotoxicDrugs">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Nephrotoxic Drugs Details</mat-label>
+            <textarea  matInput formControlName="nephrotoxicDrugsDeatils" title="Nephrotoxic Drugs Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Radiocontrast Agents:</b></label>
+          <mat-radio-group formControlName="hasRadiocontrastAgents">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Radiocontrast Agents Deatils</mat-label>
+            <textarea  matInput formControlName="radiocontrastAgentsDeatils" title="radiocontrast Agents Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Cardiac Surgery:</b></label>
+          <mat-radio-group formControlName="hasCardiacSurgery">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div>
+        <div style="margin-top: 1%;">
+          <button type="button" class="btn btn-secondary cancel-button"
+            (click)="navigateBack()">Close</button>
+            <button type="button" class="btn btn-primary cancel-button"
+            matStepperNext>Next</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form">
+    <form class="form" [formGroup]="form">
+      <ng-template matStepLabel>AKI Susceptibilites</ng-template>
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>Dehydration:</b></label>
+          <mat-radio-group formControlName="hasDehydration">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Dehydration Details</mat-label>
+            <textarea  matInput formControlName="dehydrationsDeatils" title="Dehydration Deatis"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>CDK:</b></label>
+          <mat-radio-group formControlName="hasCDK">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>CDK Details</mat-label>
+            <textarea  matInput formControlName="cDKDeatils" title="CDK Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Heart Disease:</b></label>
+          <mat-radio-group formControlName="hasHeartDisease">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>HeaDiseaset Details</mat-label>
+            <textarea  matInput formControlName="hearDiseasetDeatils" title="Hear Diseaset Details"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <label><b>Liver Disease:</b></label>
+          <mat-radio-group formControlName="hasLiverDisease">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Liver Disease Details</mat-label>
+            <textarea  matInput formControlName="liverDiseaseDeatils" title="Liver Disease Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Lung Disease:</b></label>
+          <mat-radio-group formControlName="hasLungDisease">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Lung Disease Details</mat-label>
+            <textarea  matInput formControlName="lungDiseaseDeatils" title="Lung Disease Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Diabetes Mellitus:</b></label>
+          <mat-radio-group formControlName="hasHeartDisease">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Diseaset Mellitus Details</mat-label>
+            <textarea  matInput formControlName="diabetesMellitusDeatils" title="Diseaset Mellitus Details"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <label><b>Cancer:</b></label>
+          <mat-radio-group formControlName="hasCancer">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field  class="col-sm-8" appearance="outline">
+            <mat-label>Cancer Deatils</mat-label>
+            <textarea  matInput formControlName="cancerDeatils" title="Cancer Deatils"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <mat-form-field class="col-sm-3" appearance="outline">
+            <mat-label>Anemia</mat-label>
+            <input matInput type="number" min="1" formControlName="anemia" title="Anemia">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <mat-form-field class="col-sm-3" appearance="outline">
+            <mat-label>Serum Ceratinine</mat-label>
+            <input matInput type="number" min="1" formControlName="serumCeratinine" title="Anemia">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+        <div class="col-sm-4">
+          <label><b>Black Race:</b></label>
+          <mat-radio-group formControlName="blackRace">
+            <mat-radio-button [value]='true'>Yes</mat-radio-button>
+            <mat-radio-button [value]='false'>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row">
+        <div  style="padding: 0px; margin-top: 15px;">
+          <button type="button" class="btn btn-secondary cancel-button" style="margin-right: 10px;"
+          (click)="navigateBack()">Close</button>
+          <button type="button" class="btn btn-primary"
+            [disabled]="!this.form.valid"
+            (click)="onSubmit()">Save</button>
+
+        </div>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

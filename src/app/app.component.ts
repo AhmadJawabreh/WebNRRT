@@ -38,10 +38,12 @@ export class AppComponent {
       this.router.navigate([`patients/vistis`]);
     } else if (type === 2) {
       this.router.navigate([`patients/history`]);
-    } else if (type === 4) {
+    }  else if (type === 3) {
+      this.router.navigate([`patient/akira`]);
+    }else if (type === 4) {
       this.router.navigate([`teams`]);
     } else if (type === 5) {
-      this.router.navigate([`teams/members`]);
+      this.router.navigate([`team/members`]);
     } else if (type === 6) {
       this.authenticationService.logout();
       this.router.navigate([`login`]);

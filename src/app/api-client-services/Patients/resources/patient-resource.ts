@@ -3,6 +3,8 @@
  * All rights reserved.
  */
 
+import { TeamResource } from "../../teams/Resources/team-resource";
+
 export interface PatientResource {
   id: number;
   identity: string;
@@ -11,8 +13,11 @@ export interface PatientResource {
   grandFatherName: string;
   familyName: string;
   age: number;
+  phoneNumber: string;
+  educationLevel: number;
   monthlyIncome: number;
   gender: number;
   religion: number;
   address: string;
+  team: TeamResource;
 }

@@ -48,6 +48,13 @@ import { TeamsEffect } from './effects/teams.effect';
 import { PatientsHistoryComponent } from './components/patients-history/patients-history.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { TeamsFormComponent } from './components/teams-form/teams-form.component';
+import { TeamMembersEffect } from './effects/team-members.effect';
+import { TeamMembersComponent } from './components/team-members/team-members.component';
+import { TeamMembersFormComponent } from './components/team-members-form/team-members-form.component';
+import { AcuteKidneyInjuryRiskAssessmentEffect } from './effects/acute-kidney-injury-risk-assessment.effect';
+import { AKIRAComponent } from './components/akira/akira.component';
+import { AKIRAFormComponent } from './components/akira-form/akira-form.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -60,7 +67,11 @@ import { TeamsFormComponent } from './components/teams-form/teams-form.component
     PatientsMovementsFormComponent,
     LoginComponent,
     TeamsComponent,
-    TeamsFormComponent
+    TeamsFormComponent,
+    TeamMembersComponent,
+    TeamMembersFormComponent,
+    AKIRAComponent,
+    AKIRAFormComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +86,9 @@ import { TeamsFormComponent } from './components/teams-form/teams-form.component
       PatientsHistoryEffect,
       PatientsMovementsEffect,
       TeamsEffect,
-      AuthenticationEffect
+      TeamMembersEffect,
+      AuthenticationEffect,
+      AcuteKidneyInjuryRiskAssessmentEffect
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -98,7 +111,8 @@ import { TeamsFormComponent } from './components/teams-form/teams-form.component
     MatListModule,
     MatProgressBarModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule
   ],
   providers: [HttpClientModule, NgbModal, NgbModalConfig, MatSnackBar, SnackBar, AuthGuardService],
   bootstrap: [AppComponent],
