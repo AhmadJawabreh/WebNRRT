@@ -18,7 +18,7 @@ export class PatientsMovementsComponent implements OnInit {
     'patientIdentity',
     'checkIn',
     'checkOut',
-    'clinicName',
+    'department',
     'Actions',
   ];
   public isLoading = true;

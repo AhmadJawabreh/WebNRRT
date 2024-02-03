@@ -5,7 +5,7 @@ export interface PatientMovementResource {
   patientIdentity: string;
   checkIn: Date;
   checkOut: Date;
-  clinicName: string;
+  departmentName: string;
   specialistName: string;
   medicalPlan: string;
   bloodPressure: number;

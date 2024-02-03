@@ -51,6 +51,10 @@ import { TeamsFormComponent } from './components/teams-form/teams-form.component
 import { TeamMembersEffect } from './effects/team-members.effect';
 import { TeamMembersComponent } from './components/team-members/team-members.component';
 import { TeamMembersFormComponent } from './components/team-members-form/team-members-form.component';
+import { AcuteKidneyInjuryRiskAssessmentEffect } from './effects/acute-kidney-injury-risk-assessment.effect';
+import { AKIRAComponent } from './components/akira/akira.component';
+import { AKIRAFormComponent } from './components/akira-form/akira-form.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,9 @@ import { TeamMembersFormComponent } from './components/team-members-form/team-me
     TeamsComponent,
     TeamsFormComponent,
     TeamMembersComponent,
-    TeamMembersFormComponent
+    TeamMembersFormComponent,
+    AKIRAComponent,
+    AKIRAFormComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +87,8 @@ import { TeamMembersFormComponent } from './components/team-members-form/team-me
       PatientsMovementsEffect,
       TeamsEffect,
       TeamMembersEffect,
-      AuthenticationEffect
+      AuthenticationEffect,
+      AcuteKidneyInjuryRiskAssessmentEffect
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -104,7 +111,8 @@ import { TeamMembersFormComponent } from './components/team-members-form/team-me
     MatListModule,
     MatProgressBarModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule
   ],
   providers: [HttpClientModule, NgbModal, NgbModalConfig, MatSnackBar, SnackBar, AuthGuardService],
   bootstrap: [AppComponent],

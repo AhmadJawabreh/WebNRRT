@@ -1,3 +1,5 @@
+import { TeamModel } from 'src/app/api-client-services/teams/models/team-model';
+import { TeamsService } from 'src/app/services/teams.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +8,8 @@ import { PatientsService } from './../../services/patients.service';
 import { PatientModel } from './../../api-client-services/patients/models/PatientModel';
 import { PatientResource } from './../../api-client-services/patients/resources/patient-resource';
 import { PatientFilter } from './../../api-client-services/patients/filters/PatientFilter';
+import { TeamFilter } from 'src/app/api-client-services/teams/filters/team-filter';
+import { TeamResource } from 'src/app/api-client-services/teams/Resources/team-resource';
 
 @Component({
   selector: 'app-patients-form',
@@ -19,9 +23,14 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
   public model = {} as PatientModel;
   public form = {} as FormGroup;
   public subscriptions = [] as Subscription[];
+  public teams = [] as TeamResource[];
+  public team = {} as TeamResource;
+  public educationLevel = 0;
+
 
   constructor(
     private readonly patientsService: PatientsService,
+    private readonly teamService: TeamsService,
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router
@@ -30,6 +39,12 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.patientId = Number.parseInt(this.route.snapshot.params['id'], 10);
     this.initializeForm({} as PatientResource);
+    this.teamService.loadTeams({skip: 0, take: 10000} as TeamFilter);
+    this.subscriptions.push(
+      this.teamService.teams.subscribe((teams) => {
+        this.teams = teams;
+      })
+    );
 
     if (this.patientId) {
       this.title = 'Edit Patient';
@@ -41,6 +56,7 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
               items.find((item) => item.id === this.patientId) ??
               ({} as PatientResource);
               this.initializeForm(item);
+              this.educationLevel = item.educationLevel;
           }
         })
       );
@@ -77,6 +93,9 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
       religion: [item.religion !== 1 ? 0 : 1, Validators.required],
       address: [item.address ?? '', Validators.required],
       monthlyIncome: [item.monthlyIncome ?? 1, Validators.required],
+      educationLevel: [item.educationLevel ?? 0, Validators.required],
+      phoneNumber : [item.phoneNumber ?? '', Validators.required],
+      teamId : [item.team?.id ?? null, Validators.required]
     });
 
     this.subscriptions.push(
@@ -96,6 +115,9 @@ export class PatientsFormComponent implements OnInit, OnDestroy {
       grandFatherName: model.grandFatherName,
       familyName: model.familyName,
       age: model.age,
+      educationLevel: model.educationLevel,
+      phoneNumber: model.phoneNumber,
+      teamId: model.teamId,
       gender:
         typeof model.gender === 'string'
           ? Number.parseInt(model.gender)

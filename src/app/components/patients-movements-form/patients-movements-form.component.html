@@ -13,9 +13,9 @@
       </mat-form-field>
 
       <mat-form-field class="col-sm-4" appearance="outline">
-        <mat-label>Clinic Name</mat-label>
-        <input matInput title="clinicName"  formControlName="clinicName">
-        <mat-error *ngIf="this.form.get('clinicName')?.hasError">Please enter the Clinic Name</mat-error>
+        <mat-label>Department Name</mat-label>
+        <input matInput title="Department Name"  formControlName="clinicName">
+        <mat-error *ngIf="this.form.get('clinicName')?.hasError">Please enter the Department Name</mat-error>
       </mat-form-field>
 
       <mat-form-field class="col-sm-4" appearance="outline">
@@ -28,7 +28,7 @@
     <div class="row">
       <mat-form-field class="col-sm-4" appearance="outline">
         <mat-label>Blood Pressure</mat-label>
-        <input matInput type="number" min="0" formControlName="bloodPressure" title="bloodPressure">
+        <input matInput formControlName="bloodPressure" title="bloodPressure">
         <mat-error *ngIf="this.form.get('bloodPressure')?.hasError">Please enter the Blood Pressure, and make sure the value not less than zero</mat-error>
       </mat-form-field>
 
@@ -82,8 +82,8 @@
     </div>
     <div class="row">
       <div class="col-sm-4">
-        <label><b>Contrast Media:</b></label>
-        <mat-radio-group formControlName="haveContrastMedia">
+        <label><b>Cardac Catherterization:</b></label>
+        <mat-radio-group formControlName="haveCardacCatherterization">
           <mat-radio-button [value]='true'>Yes</mat-radio-button>
           <mat-radio-button [value]='false'>No</mat-radio-button>
         </mat-radio-group>
